@@ -1,13 +1,14 @@
-import { Center, Heading } from '@chakra-ui/react'
+import { Center } from '@chakra-ui/react'
 import Head from 'next/head'
+import { ToolBox } from '../components/ToolBox'
 
 export default function Home() {
   return (
-    <Center h="100vh">
+    <Center minH="100vh">
       <Head>
         <title>Referências bibliográficas</title>
       </Head>
-      <Heading>Referências bibliográficas</Heading>
+      <ToolBox />
     </Center>
   )
 }
