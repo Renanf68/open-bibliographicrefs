@@ -12,7 +12,7 @@ export const ToolBox = () => {
   const [standard, setStandard] = React.useState<Standard>('abnt')
   return (
     <Flex
-      as="div"
+      mt="8"
       w="100%"
       maxW="760px"
       direction="column"
@@ -20,7 +20,6 @@ export const ToolBox = () => {
       pt="4rem"
       pb="2rem"
       px={8}
-      mt="-1rem"
       borderRadius="md"
       boxShadow="md"
     >

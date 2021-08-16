@@ -1,5 +1,6 @@
 import { extendTheme } from "@chakra-ui/react"
 import { Input } from './components/Input'
+import { Button } from './components/Button'
 
 const customTheme = extendTheme({
   breakpoints: ["44em", "80em"],
@@ -27,6 +28,7 @@ const customTheme = extendTheme({
   },
   components: {
     Input,
+    Button,
   }
 });
 

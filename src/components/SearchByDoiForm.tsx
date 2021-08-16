@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import {
-  FormControl,
-  FormLabel,
-  Input,
+  Flex,
   Icon,
   Box,
   Button,
   Spinner,
   Stack,
+  Text,
+  HStack,
+  Center,
 } from "@chakra-ui/react";
 import { joinFullNameAuthors } from "../utils/utils";
 import { FormMessage } from "./FormMessage";
@@ -113,7 +114,7 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
           }
           setMessage({
             status: 1,
-            message: "Uma correnspondência encontrada!",
+            message: "Uma correspondência encontrada!",
           })
           console.log("resposta", res.entries[0])
           setSearchResponse(res.entries[0])
@@ -193,206 +194,132 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
       )}
       {searchResponse?.EntryType === "book" && (
         <ExtraInputsBox>
-          <FormControl w="100%" mt="1rem">
-            <FormLabel htmlFor="edition">
-              Nº da edição{" "}
-              <Icon
-                name="question"
-                size="0.8rem"
-                fontWeight="bold"
-                mb="0.5rem"
-              />
-            </FormLabel>
-            <Input
-              id="edition"
-              placeholder="Ex: 4. ed."
-              maxW="8rem"
-              value={edition}
-              onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                setEdition(e.currentTarget.value)
-              }
-            />
-          </FormControl>
+          <CustomInput 
+            id="edition"
+            label={'Nº da edição'}
+            placeholder="Ex: 4. ed."
+            maxW="8rem"
+            value={edition}
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setEdition(e.currentTarget.value)
+            }
+          />
         </ExtraInputsBox>
       )}
       {(searchResponse?.EntryType === "phdthesis" ||
         searchResponse?.EntryType === "masterthesis") && (
         <ExtraInputsBox>
-          <FormControl display="flex" flexDir="column">
-            <FormControl w="100%" maxW="6rem" mt="1rem">
-              <FormLabel htmlFor="year">
-                Ano{" "}
-                <Icon
-                  name="question"
-                  size="0.8rem"
-                  fontWeight="bold"
-                  mb="0.5rem"
-                />
-              </FormLabel>
-              <Input
-                id="year"
-                placeholder="Ex: 2020"
-                w="100%"
-                value={year}
-                onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                  setYear(e.currentTarget.value)
-                }
-              />
-            </FormControl>
-            <FormControl w="100%" mt="1rem" ml={["0", "0.2rem"]}>
-              <FormLabel htmlFor="typeDoc">
-                Tipo de documento{" "}
-                <Icon
-                  name="question"
-                  size="0.8rem"
-                  fontWeight="bold"
-                  mb="0.5rem"
-                />
-              </FormLabel>
-              <Input
-                id="typeDoc"
-                placeholder="Ex: Tese (Doutorado em Administração)"
-                w="100%"
-                value={typeDoc}
-                onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                  setTypeDoc(e.currentTarget.value)
-                }
-              />
-            </FormControl>
-            <FormControl w="100%" mt="1rem" ml={["0", "0.2rem"]}>
-              <FormLabel htmlFor="vinculation">
-                Vinculação acadêmica{" "}
-                <Icon
-                  name="question"
-                  size="0.8rem"
-                  fontWeight="bold"
-                  mb="0.5rem"
-                />
-              </FormLabel>
-              <Input
-                id="vinculation"
-                placeholder="Ex: Universidade Federal de Pernambuco"
-                w="100%"
-                value={vinculation}
-                onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                  setVinculation(e.currentTarget.value)
-                }
-              />
-            </FormControl>
-          </FormControl>
+          <CustomInput 
+            mt="4"
+            id="year"
+            label={'Ano'}
+            placeholder="Ex: 2020"
+            w="100%"
+            value={year}
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setYear(e.currentTarget.value)
+            }
+          />
+          <CustomInput 
+            mt="4"
+            id="typeDoc"
+            label={'Tipo de documento'}
+            placeholder="Ex: Tese (Doutorado em Administração)"
+            w="100%"
+            value={typeDoc}
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setTypeDoc(e.currentTarget.value)
+            }
+          />
+          <CustomInput 
+            mt="4"
+            id="vinculation"
+            label={'Vinculação acadêmica'}
+            placeholder="Ex: Universidade Federal de Pernambuco"
+            w="100%"
+            value={vinculation}
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setVinculation(e.currentTarget.value)
+            }
+          />
         </ExtraInputsBox>
       )}
       {searchResponse?.EntryType === "incollection" && (
         <ExtraInputsBox>
-          <FormControl w="100%" mt="1rem">
-            <FormLabel htmlFor="edition">
-              Nº da edição{" "}
-              <Icon
-                name="question"
-                size="0.8rem"
-                fontWeight="bold"
-                mb="0.5rem"
+          <CustomInput 
+            id="edition"
+            label={'Nº da edição'}
+            placeholder="Ex: 4. ed."
+            maxW="8rem"
+            value={edition}
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setEdition(e.currentTarget.value)
+            }
+          />
+          <Flex mt="4" flexDir="row" justifyContent="space-between">
+            <Text>Nome completo dos autores do livro</Text>
+          </Flex>
+          {bookAuthArray.map((auth, index) => (
+            <Flex mt="2" key={index} flexDir="row">
+              <CustomInput 
+                id={`auth-${index}`}
+                label={`Nome autor ${index + 1}`}
+                placeholder={`Digite o nome do autor ${index + 1}`}
+                w={bookAuthArray.length === 1 ? '100%' : '95%'}
+                value={auth.fullName}
+                onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                  updateAuthors(index, e.currentTarget.value)
+                }
               />
-            </FormLabel>
-            <Input
-              id="edition"
-              placeholder="Ex: 4. ed."
-              maxW="8rem"
-              value={edition}
-              onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                setEdition(e.currentTarget.value)
-              }
-            />
-          </FormControl>
-          <FormControl w="100%" mt="1rem" ml={["0", "0.2rem"]} isRequired>
-            <Box display="flex" flexDir="row" justifyContent="space-between">
-              <FormLabel htmlFor="authName">
-                Nome completo dos autores do livro
-              </FormLabel>
-              <Box>
-                <Button
-                  variantColor="outline"
-                  aria-label="Add Autor"
-                  title="Add Autor"
-                  size="lg"
-                  color="primary"
-                  w="auto"
-                  height="auto"
-                  _focus={{ outline: "none" }}
-                  onClick={addAuthor}
-                >
-                  <Icon as={FaPlusSquare} />
-                </Button>
-              </Box>
-            </Box>
-            {bookAuthArray.map((auth, index) => (
-              <Box key={index} display="flex" flexDir="row">
-                <Input
-                  id={`auth-${index}`}
-                  placeholder={`Nome autor ${index + 1}`}
-                  w="95%"
-                  value={auth.fullName}
-                  onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                    updateAuthors(index, e.currentTarget.value)
-                  }
-                />
-                {bookAuthArray.length > 1 && (
-                  <Button
-                    variantColor="outline"
+              {bookAuthArray.length > 1 && (
+                <Center>
+                  <Icon 
                     aria-label="Excluir Autor"
                     title="Excluir Autor"
-                    size="md"
-                    color="primary"
-                    w="5%"
-                    height="auto"
                     _focus={{ outline: "none" }}
-                    onClick={() => deleteAuthor(auth.id)}
-                  >
-                    <Icon as={FaTrashAlt} />
-                  </Button>
-                )}
-              </Box>
-            ))}
-          </FormControl>
-          <Box display="flex" flexDir={["column", "row"]}>
-            <FormControl w={["100%", "auto"]} mt="1rem">
-              <FormLabel htmlFor="responsibility">
-                Responsabilidade{" "}
-                <Icon
-                  name="question"
-                  size="0.8rem"
-                  fontWeight="bold"
-                  mb="0.5rem"
-                />
-              </FormLabel>
-              <Input
-                id="responsibility"
-                placeholder="Ex: (org.) ou (orgs.)"
-                maxW={["", "12rem"]}
-                value={responsibility}
-                onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                  setResponsibility(e.currentTarget.value)
-                }
-              />
-            </FormControl>
-            <FormControl
-              w={["100%", "auto"]}
-              mt="1rem"
-              ml={["", "0.2rem"]}
-              isRequired
+                    cursor="pointer"
+                    as={FaTrashAlt} 
+                    onClick={() => deleteAuthor(auth.id)} 
+                  />
+                </Center>
+              )}
+            </Flex>
+          ))}
+          <Flex mt="2">
+            <Button
+              w="100%"
+              maxW="220px"
+              aria-label="Add Autor"
+              size="sm"
+              variant="secondary"
+              _focus={{ outline: "none" }}
+              onClick={addAuthor}
             >
-              <FormLabel htmlFor="pages">Págs. inicial-final</FormLabel>
-              <Input
-                id="pages"
-                placeholder="Ex: 12-32"
-                maxW={["", "10rem"]}
-                value={pages}
-                onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                  setPages(e.currentTarget.value)
-                }
-              />
-            </FormControl>
-          </Box>
+              Adicionar autor
+            </Button>
+          </Flex>
+          <HStack w="100%" mt="4" spacing={4}>
+            <CustomInput 
+              w="100%"
+              id="responsibility"
+              label={'Responsabilidade'}
+              placeholder="Ex: (org.) ou (orgs.)"
+              value={responsibility}
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                setResponsibility(e.currentTarget.value)
+              }
+            />
+            <CustomInput 
+              w="100%"
+              id="pages"
+              label={'Págs. inicial-final'}
+              placeholder="Ex: 12-32"
+              value={pages}
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                setPages(e.currentTarget.value)
+              }
+            />
+          </HStack>
         </ExtraInputsBox>
       )}
       {Object.keys(searchResponse).length > 0 && standard === "abnt" && (
