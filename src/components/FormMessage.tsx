@@ -1,5 +1,6 @@
 import React from "react"
 import { Box, Text, Icon } from "@chakra-ui/react"
+import { FaCheckCircle, FaInfoCircle} from 'react-icons/fa'
 
 interface FormMsgProps {
   type: number
@@ -17,15 +18,14 @@ export const FormMessage = ({ type, message }: FormMsgProps) => {
       borderRadius="sm"
     >
       <Text
-        as="p"
         fontSize="sm"
         fontWeight="bold"
         color={type === 1 ? "#38A169" : "#000"}
       >
         {type === 1 ? (
-          <Icon name="check" mr="1rem" mb="0.2rem" />
+          <Icon as={FaCheckCircle} mr="1rem" mb="0.2rem" />
         ) : (
-          <Icon name="info-outline" mr="1rem" mb="0.2rem" />
+          <Icon as={FaInfoCircle} mr="1rem" mb="0.2rem" />
         )}
         {message}
       </Text>

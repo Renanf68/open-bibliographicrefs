@@ -20,7 +20,7 @@ import { SearchByDoiResultAPA } from "./apa/SearchByDoiResultAPA";
 import { SearchByDoiResultVanc } from "./vancouver/SearchByDoiResultVanc";
 import { ExtraInputsBox } from "./SearchByDoiExtraInputsBox";
 import { DOIResponse, Standard } from '../types';
-import { FaPlusSquare, FaTrashAlt } from 'react-icons/fa'
+import { MdClose } from 'react-icons/md'
 import { CustomInput } from "./CustomInput";
 
 interface SearchByDoiFormProps {
@@ -266,7 +266,7 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
                 id={`auth-${index}`}
                 label={`Nome autor ${index + 1}`}
                 placeholder={`Digite o nome do autor ${index + 1}`}
-                w={bookAuthArray.length === 1 ? '100%' : '95%'}
+                w={bookAuthArray.length === 1 ? '100%' : '98%'}
                 value={auth.fullName}
                 onChange={(e: React.FormEvent<HTMLInputElement>) =>
                   updateAuthors(index, e.currentTarget.value)
@@ -279,7 +279,9 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
                     title="Excluir Autor"
                     _focus={{ outline: "none" }}
                     cursor="pointer"
-                    as={FaTrashAlt} 
+                    color="red.500"
+                    fontSize="xl"
+                    as={MdClose} 
                     onClick={() => deleteAuthor(auth.id)} 
                   />
                 </Center>

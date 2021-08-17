@@ -12,7 +12,7 @@ export default function Home() {
       <Flex flexDir="column" justifyContent="center">
         <Heading as="h1" fontSize="28px" textAlign="center">Referências bibliográficas</Heading>
         <Heading as="h2" mt="4" maxW="600px" fontSize="16px" fontWeight="400" textAlign="center" color="gray.700">
-          Ferramenta Opem Source de apoio à comunidade acadêmica. Informe o 
+          Ferramenta Open Source de apoio à comunidade acadêmica. Informe o 
           <Tooltip 
             label="A sigla DOI significa Digital Object Identifier (Identificador de Objeto Digital). Mais informação em https://www.doi.org/" 
             aria-label="Identificador de Objeto Digital"
