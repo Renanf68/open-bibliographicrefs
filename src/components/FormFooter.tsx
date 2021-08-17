@@ -1,5 +1,6 @@
 import React from "react"
 import { Box, Text, Icon } from "@chakra-ui/react"
+import { FaInfoCircle } from "react-icons/fa"
 
 export const FormFooter = () => {
   return (
@@ -9,18 +10,17 @@ export const FormFooter = () => {
       w="100%"
       backgroundColor="gray.50"
       mt="1rem"
-      pt="2rem"
-      pb="1rem"
+      py="1rem"
       px="2rem"
       borderRadius="sm"
     >
       <Box w="50%">
         <Text as="p" fontSize="sm" fontWeight="bold">
-          <Icon name="info-outline" mr="1rem" mb="0.2rem" />
+          <Icon as={FaInfoCircle} w="12px" h="12px" mr="2" mb="1"/>
           Campos obrigatórios *
         </Text>
       </Box>
-      <Box w="50%" display="flex" flexDir="column">
+      {/*<Box w="50%" display="flex" flexDir="column">
         <Text as="p" fontSize="sm" fontWeight="bold">
           Documentos suportados:
         </Text>
@@ -31,7 +31,7 @@ export const FormFooter = () => {
           Livros; <br />
           Capítulos de livros.
         </Text>
-      </Box>
+      </Box>*/}
     </Box>
   )
 }

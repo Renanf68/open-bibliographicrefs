@@ -12,16 +12,16 @@ export const ToolBox = () => {
   const [standard, setStandard] = React.useState<Standard>('abnt')
   return (
     <Flex
-      mt="8"
+      mt="4"
       w="100%"
       maxW="760px"
       direction="column"
       bg="white"
-      pt="4rem"
+      pt="1rem"
       pb="2rem"
       px={8}
-      borderRadius="md"
-      boxShadow="md"
+      //borderRadius="md"
+      //boxShadow="md"
     >
       <FormControl as="fieldset">
         <RadioGroup

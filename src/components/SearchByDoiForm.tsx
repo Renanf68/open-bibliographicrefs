@@ -156,8 +156,8 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
     setBookAuthArray(prevState => prevState.filter(author => author.id !== id))
   }
   return (
-    <Box w="100%">
-      <Stack mt="4" direction={['column', 'row']} spacing={2} >
+    <Box mt="6" w="100%">
+      <Stack direction={['column', 'row']} spacing={2} >
         <CustomInput 
           id="place"
           label={'Local de publicação'}
@@ -175,6 +175,7 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
           onChange={(e: React.FormEvent<HTMLInputElement>) =>
             setDoi(e.currentTarget.value)
           }
+          isRequired
         />
         <Button
           w="50%"
