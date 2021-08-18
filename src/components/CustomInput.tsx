@@ -18,8 +18,8 @@ export const CustomInput = ({label, maxW, mt, mb, mr, ml, flex, value, placehold
           left="2" 
           top={(isFocus || value) ? '0' : '6'} 
           px="4px" 
-          bg="white" 
-          zIndex={(isFocus || value) ? '999' : '0'}
+          bg="gray.200" 
+          zIndex={(isFocus || value) ? '900' : '0'}
         >
           {label}
           {isRequired && <Text pl="1" as="span">*</Text>}
@@ -29,7 +29,7 @@ export const CustomInput = ({label, maxW, mt, mb, mr, ml, flex, value, placehold
         {...props} 
         mt="16px"
         h="40px"
-        _autofill={{WebkitBoxShadow: '0 0 0 30px white inset'}}
+        _autofill={{WebkitBoxShadow: '0 0 0 30px #FBFBFB inset'}}
         placeholder={(placeholder && isFocus) ? placeholder : ''} 
         onFocus={() => setIsfocus(true)}
         onBlur={() => setIsfocus(false)}

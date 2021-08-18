@@ -14,14 +14,10 @@ export const ToolBox = () => {
     <Flex
       mt="4"
       w="100%"
-      maxW="760px"
-      direction="column"
-      bg="white"
-      pt="1rem"
-      pb="2rem"
-      px={8}
-      //borderRadius="md"
-      //boxShadow="md"
+      p="8"
+      bg="gray.200"
+      borderRadius="lg"
+      flexDir="column"
     >
       <FormControl as="fieldset">
         <RadioGroup
@@ -30,7 +26,7 @@ export const ToolBox = () => {
           display="flex"
           flexDirection="row"
           justifyContent="center"
-          colorScheme="blue"
+          colorScheme="purple"
         >
           <Radio borderColor="gray.400" value="abnt">ABNT</Radio>
           <Radio borderColor="gray.400" value="apa" ml="1.6rem">

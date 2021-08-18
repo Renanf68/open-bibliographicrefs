@@ -12,7 +12,6 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { joinFullNameAuthors } from "../utils/utils";
-import { FormMessage } from "./FormMessage";
 import { FormFooter } from "./FormFooter";
 import { SearchByDoiResultABNT } from "./abnt/SearchByDoiResultABNT";
 import doiApi from "../services/doiapi";
@@ -55,62 +54,8 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
   const [responsibility, setResponsibility] = useState("")
   const [pages, setPages] = useState("")
   const toast = useToast();
-  // side effects
-  useEffect(() => {
-    if (Object.keys(searchResponse).length > 0) {
-      setSearchResponse(prevState => {
-        const { Fields } = prevState
-        Fields["edition"] = edition
-        return { ...prevState, Fields }
-      })
-    }
-  }, [edition])
-  useEffect(() => {
-    if (Object.keys(searchResponse).length > 0) {
-      setSearchResponse(prevState => {
-        const { Fields } = prevState
-        Fields["year"] = year
-        Fields["typeDoc"] = typeDoc
-        Fields["vinculation"] = vinculation
-        return { ...prevState, Fields }
-      })
-    }
-  }, [year, typeDoc, vinculation])
-  useEffect(() => {
-    if (Object.keys(searchResponse).length > 0) {
-      const newString = joinFullNameAuthors(bookAuthArray)
-      setSearchResponse(prevState => {
-        const { Fields } = prevState
-        Fields["bookAuthors"] = newString
-        return { ...prevState, Fields }
-      })
-    }
-  }, [bookAuthArray])
-  useEffect(() => {
-    if (Object.keys(searchResponse).length > 0) {
-      setSearchResponse(prevState => {
-        const { Fields } = prevState
-        Fields["responsibility"] = responsibility
-        Fields["pages"] = pages
-        return { ...prevState, Fields }
-      })
-    }
-  }, [responsibility, pages])
-  React.useEffect(() => {
-    if(message) {
-      toast({
-        id: message.message,
-        duration: 8000,
-        render: () => (
-          <CustomToast
-            type={message.type}
-            message={message.message}
-          />
-        ),
-      });
-    }
-  }, [message])
-  function searchByDoi(doi: string) {
+  // handlers
+  const searchByDoi = (doi: string) => {
     setSearchResponse({} as DOIResponse)
     setMessage(undefined)
     if (doi) {
@@ -161,14 +106,14 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
       })
     }
   }
-  function addAuthor() {
+  const addAuthor = () => {
     const newArray = [
       ...bookAuthArray,
       { ...authorsObj, id: Math.floor(Date.now()) },
     ]
     setBookAuthArray(newArray)
   }
-  function updateAuthors(position: number, value: string) {
+  const updateAuthors = (position: number, value: string) => {
     const updatedAuthors = bookAuthArray.map((item, index) => {
       if (index === position) {
         return { ...item, fullName: value }
@@ -177,12 +122,68 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
     })
     setBookAuthArray(updatedAuthors)
   }
-  function deleteAuthor(id: number) {
+  const deleteAuthor = (id: number) => {
     setBookAuthArray(prevState => prevState.filter(author => author.id !== id))
   }
+  // side effects
+  useEffect(() => {
+    if (Object.keys(searchResponse).length > 0) {
+      setSearchResponse(prevState => {
+        const { Fields } = prevState
+        Fields["edition"] = edition
+        return { ...prevState, Fields }
+      })
+    }
+  }, [edition])
+  useEffect(() => {
+    if (Object.keys(searchResponse).length > 0) {
+      setSearchResponse(prevState => {
+        const { Fields } = prevState
+        Fields["year"] = year
+        Fields["typeDoc"] = typeDoc
+        Fields["vinculation"] = vinculation
+        return { ...prevState, Fields }
+      })
+    }
+  }, [year, typeDoc, vinculation])
+  useEffect(() => {
+    if (Object.keys(searchResponse).length > 0) {
+      const newString = joinFullNameAuthors(bookAuthArray)
+      setSearchResponse(prevState => {
+        const { Fields } = prevState
+        Fields["bookAuthors"] = newString
+        return { ...prevState, Fields }
+      })
+    }
+  }, [bookAuthArray])
+  useEffect(() => {
+    if (Object.keys(searchResponse).length > 0) {
+      setSearchResponse(prevState => {
+        const { Fields } = prevState
+        Fields["responsibility"] = responsibility
+        Fields["pages"] = pages
+        return { ...prevState, Fields }
+      })
+    }
+  }, [responsibility, pages])
+  useEffect(() => {
+    if(message) {
+      toast({
+        id: message.message,
+        duration: 8000,
+        render: () => (
+          <CustomToast
+            type={message.type}
+            message={message.message}
+          />
+        ),
+      });
+    }
+  }, [message])
+  //UI
   return (
     <Box mt="6" w="100%">
-      <Stack direction={['column', 'row']} spacing={2} >
+      <Stack direction={{ base: 'column', lg: 'row'}} spacing={2} >
         <CustomInput 
           id="place"
           label={'Local de publicação'}
@@ -203,18 +204,17 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
           isRequired
         />
         <Button
-          mt={['0', '16px !important']}
+          mt={{ base: '0', md: '16px !important'}}
           w="50%"
-          h="40px"
-          bg="blue.500"
-          color="white"
+          fontFamily="Work Sans"
+          fontWeight="medium"
           onClick={() => searchByDoi(doi)}
         >
           Buscar{" "}
           {isLoading ? (
             <Spinner color="white" size="xs" ml="1rem" mb="-0.2rem" />
             ) : (
-            <Icon pl="2" as={MdSearch} color="white" w="28px" h="28px" />
+            <Icon pl="2" as={MdSearch} w="28px" h="28px" />
           )}
         </Button>
       </Stack>

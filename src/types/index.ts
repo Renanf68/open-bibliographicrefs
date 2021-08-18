@@ -23,4 +23,6 @@ export interface DOIResponse {
     bookAuthors?: string
     responsibility?: string
   }
-}
+};
+
+export type Langs = 'en' | 'es' | 'pt-br';

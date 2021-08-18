@@ -1,33 +1,42 @@
 import { extendTheme } from "@chakra-ui/react"
-import { Input } from './components/Input'
 import { Button } from './components/Button'
 
 const customTheme = extendTheme({
-  breakpoints: ["44em", "80em"],
   fonts: {
-    body: "Roboto, system-ui, sans-serif",
-    heading: "Roboto, system-ui, sans-serif",
+    body: "Work Sans, system-ui, sans-serif",
+    heading: "Work Sans, system-ui, sans-serif",
     mono: "Menlo, monospace",
+  },
+  fontSize: {
+    sm: '16px',
+    md: '24',
+    lg: '30px',
   },
   fontWeights: {
     normal: 400,
-    medium: 600,
+    medium: 500,
     bold: 700,
   },
+  lineHeight: {
+    sm: '18,77px',
+    md: '22px',
+    lg: '35,19px'
+  },
   radii: {
-    sm: "5px",
+    sm: "6px",
     md: "8px",
+    lg: "10px",
   },
   colors: {
     gray: {
-      300: "#e1e1e6",
-      600: "#29292e",
-      700: "#202024",
-      800: "#121214",
+      200: "#FBFBFB",
     },
+    purple: {
+      200: "#F6F5FF",
+      600: "#6261CE",
+    }
   },
   components: {
-    //Input,
     Button,
   }
 });

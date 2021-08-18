@@ -1,11 +1,10 @@
 export const Button = {
   // The styles all button have in common
   baseStyle: {
-    fontFamily: 'Barlow',
+    height: '40px',
+    fontFamily: 'Work S',
     fontWeight: 'medium',
     fontSize: 'sm',
-    color: 'black',
-    border: '1px solid',
     borderRadius: 'lg',
     whiteSpace: 'normal',
     wordWrap: 'break-word',
@@ -13,11 +12,12 @@ export const Button = {
   // Variants
   variants: {
     solid: {
-      'bg': 'green.500',
-      'borderColor': 'green.500',
+      'bg': 'purple.600',
+      'color': 'white',
       ':hover': {
-        bg: 'green.300',
-        borderColor: 'green.300',
+        bg: 'purple.200',
+        color: 'purple.600',
+        borderColor: 'purple.600',
       },
       ':disabled': {
         bg: 'gray.700',
@@ -25,49 +25,9 @@ export const Button = {
         color: 'white',
       },
     },
-    secondary: {
-      'bg': 'gray.500',
-      'borderColor': 'gray.500',
-      'color': 'white',
-      'fontSize': '15px',
-      'fontWeight': '500',
-      ':hover': {
-        bg: 'gray.500',
-        borderColor: 'gray.500',
-      },
-      ':disabled': {
-        bg: 'gray.300',
-        borderColor: 'gray.300',
-      },
-    },
     outline: {
       'bg': 'white',
       'borderColor': 'black',
-      ':hover': {
-        color: 'gray.700',
-        borderColor: 'gray.700',
-      },
-      ':disabled': {
-        color: 'gray.500',
-        borderColor: 'gray.500',
-      },
-    },
-    white: {
-      'bg': 'white',
-      'color': 'black',
-      'borderColor': 'black',
-      ':hover': {
-        color: 'gray.700',
-      },
-      ':disabled': {
-        color: 'gray.500',
-        borderColor: 'gray.500',
-      },
-    },
-    danger: {
-      'bg': 'red',
-      'color': 'white',
-      'borderColor': 'red',
       ':hover': {
         color: 'gray.700',
         borderColor: 'gray.700',
@@ -94,6 +54,5 @@ export const Button = {
   // The default size and variant values
   defaultProps: {
     variant: 'solid',
-    size: 'lg',
   },
 };
