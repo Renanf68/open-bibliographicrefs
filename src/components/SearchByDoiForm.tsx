@@ -9,6 +9,7 @@ import {
   Text,
   HStack,
   Center,
+  useToast,
 } from "@chakra-ui/react";
 import { joinFullNameAuthors } from "../utils/utils";
 import { FormMessage } from "./FormMessage";
@@ -20,8 +21,9 @@ import { SearchByDoiResultAPA } from "./apa/SearchByDoiResultAPA";
 import { SearchByDoiResultVanc } from "./vancouver/SearchByDoiResultVanc";
 import { ExtraInputsBox } from "./SearchByDoiExtraInputsBox";
 import { DOIResponse, Standard } from '../types';
-import { MdClose } from 'react-icons/md'
+import { MdClose, MdSearch } from 'react-icons/md'
 import { CustomInput } from "./CustomInput";
+import { CustomToast } from "./CustomToast";
 
 interface SearchByDoiFormProps {
   standard: Standard;
@@ -32,9 +34,16 @@ const authorsObj = {
   fullName: "",
 }
 
+type MessageType = 'success' | 'warning' | 'error'; 
+interface Message {
+  type: MessageType;
+  message: string;
+}
+
 export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
+  // state
   const [isLoading, setIsLoading] = useState(false)
-  const [message, setMessage] = useState({ status: 0, message: "" })
+  const [message, setMessage] = useState<Message>();
   const [place, setPlace] = useState("")
   const [doi, setDoi] = useState("")
   const [searchResponse, setSearchResponse] = useState({} as DOIResponse)
@@ -45,6 +54,8 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
   const [bookAuthArray, setBookAuthArray] = useState([authorsObj])
   const [responsibility, setResponsibility] = useState("")
   const [pages, setPages] = useState("")
+  const toast = useToast();
+  // side effects
   useEffect(() => {
     if (Object.keys(searchResponse).length > 0) {
       setSearchResponse(prevState => {
@@ -85,9 +96,23 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
       })
     }
   }, [responsibility, pages])
+  React.useEffect(() => {
+    if(message) {
+      toast({
+        id: message.message,
+        duration: 8000,
+        render: () => (
+          <CustomToast
+            type={message.type}
+            message={message.message}
+          />
+        ),
+      });
+    }
+  }, [message])
   function searchByDoi(doi: string) {
     setSearchResponse({} as DOIResponse)
-    setMessage({ status: 0, message: "" })
+    setMessage(undefined)
     if (doi) {
       setIsLoading(true)
       doiApi
@@ -108,12 +133,12 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
           ) {
             setIsLoading(false)
             return setMessage({
-              status: 2,
+              type: 'error',
               message: "Tipo de documento não suportado!",
             })
           }
           setMessage({
-            status: 1,
+            type: 'success',
             message: "Uma correspondência encontrada!",
           })
           console.log("resposta", res.entries[0])
@@ -124,14 +149,14 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
           console.log(error)
           setIsLoading(false)
           setMessage({
-            status: 2,
+            type: 'warning',
             message:
               "Desculpe, o DOI informado não obteve nenhuma correspondência, ou o servidor não pode ser acessado.",
           })
         })
     } else {
       setMessage({
-        status: 2,
+        type: 'error',
         message: "Favor preencher os campos obrigatórios.",
       })
     }
@@ -178,21 +203,21 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
           isRequired
         />
         <Button
+          mt={['0', '16px !important']}
           w="50%"
-          h="60px"
+          h="40px"
           bg="blue.500"
           color="white"
           onClick={() => searchByDoi(doi)}
         >
           Buscar{" "}
-          {isLoading && (
+          {isLoading ? (
             <Spinner color="white" size="xs" ml="1rem" mb="-0.2rem" />
+            ) : (
+            <Icon pl="2" as={MdSearch} color="white" w="28px" h="28px" />
           )}
         </Button>
       </Stack>
-      {message.status > 0 && (
-        <FormMessage type={message.status} message={message.message} />
-      )}
       {searchResponse?.EntryType === "book" && (
         <ExtraInputsBox>
           <CustomInput 

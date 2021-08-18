@@ -27,7 +27,7 @@ const customTheme = extendTheme({
     },
   },
   components: {
-    Input,
+    //Input,
     Button,
   }
 });
