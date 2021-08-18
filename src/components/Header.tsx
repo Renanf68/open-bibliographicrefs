@@ -8,7 +8,7 @@ import { LangSelect } from "./LangSelect";
 export const Header = () => {
   // state
   const [lang, setLang] = React.useState<Langs>('pt-br');
-  const [likes, setLikes] = React.useState<number>();
+  const [likes, setLikes] = React.useState<number>(100);
   const [liked, setLiked] = React.useState(false);
   // handlers
   const AddLike = () => {
@@ -34,7 +34,7 @@ export const Header = () => {
       zIndex="999"
     >
       <Flex w="90%" justifyContent="space-between">
-        <Flex w="234px" justifyContent="flex-start" alignItems="center">
+        <Flex w="300px" justifyContent="flex-start" alignItems="center">
           <Icon 
             as={liked ? FaHeart : FaRegHeart} 
             w="20px" 
@@ -45,7 +45,7 @@ export const Header = () => {
           />
           {
             likes ? !liked ? (
-              <Text ml="2" fontSize="sm" color="purple.600" fontWeight="bold">
+              <Text ml="2" fontSize="sm">
                 <Text as="span" color="purple.600" fontWeight="bold">
                   {`${likes} `}
                 </Text>
@@ -65,14 +65,14 @@ export const Header = () => {
             ) 
           }
         </Flex>
-        <Center w="234px">
+        <Center w="300px">
           <Tooltip label="Contribua! =)" aria-label="Link para o repositório no github. Contribua!">
             <Link href="https://github.com/Renanf68/open-bibliographicrefs" isExternal>
               <Icon as={FaGithub} w="22px" h="22px" />
             </Link>
           </Tooltip>
         </Center>
-        <Flex w="234px" justifyContent="flex-end" alignItems="center">
+        <Flex w="300px" justifyContent="flex-end" alignItems="center">
           <Icon as={MdLanguage} w="22px" h="22px" color="purple.600"/>
           <Box ml="-12px" w="70px">
             <LangSelect lang={lang} onChange={(e) => setLang(e.target.value as Langs)} />

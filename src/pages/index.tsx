@@ -16,13 +16,13 @@ export default function Home() {
     <Center minH="100vh" pt="160px" pb="24">
       <Container>
         <Flex flexDir="column" justifyContent="center">
-          <Heading as="h1" fontSize="lg" lineHeight="lg" textAlign="center">
+          <Heading as="h1" fontSize="30px" lineHeight="lg" textAlign="center">
             Referências bibliográficas
           </Heading>
           <Heading 
             mt="4" 
             as="h2" 
-            fontSize="sm" 
+            fontSize="16px" 
             fontWeight="normal"
             lineHeight="sm" 
             textAlign="center" 
@@ -33,7 +33,7 @@ export default function Home() {
             <Box mr="4">
               <Icon as={FaInfoCircle} color="purple.600" /> 
             </Box>
-            <Text fontSize="sm" lineHeight="md">
+            <Text fontFamily="Work Sans" fontSize="16px" lineHeight="md">
               Informe o 
               <Tooltip 
                 label="A sigla DOI significa Digital Object Identifier (Identificador de Objeto Digital). Mais informação em https://www.doi.org/" 

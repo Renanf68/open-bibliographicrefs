@@ -9,10 +9,10 @@ const customTheme = extendTheme({
   },
   fontSize: {
     sm: '16px',
-    md: '24',
-    lg: '30px',
+    md: '24px',
+    lg: '45px',
   },
-  fontWeights: {
+  fontWeight: {
     normal: 400,
     medium: 500,
     bold: 700,
