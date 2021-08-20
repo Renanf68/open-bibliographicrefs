@@ -1,13 +1,13 @@
 import { Box, Center, Flex, Icon, Link, Text, Tooltip } from "@chakra-ui/react";
 import { FaGithub, FaHeart, FaRegHeart } from 'react-icons/fa'
 import { MdLanguage } from 'react-icons/md'
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { Langs } from "../types";
 import { LangSelect } from "./LangSelect";
 
 export const Header = () => {
   // state
-  const [lang, setLang] = React.useState<Langs>('pt-br');
+  const [lang, setLang] = React.useState<Langs>({ value: 'pt-br', label: 'PT' });
   const [likes, setLikes] = React.useState<number>(100);
   const [liked, setLiked] = React.useState(false);
   // handlers
@@ -74,8 +74,8 @@ export const Header = () => {
         </Center>
         <Flex w="300px" justifyContent="flex-end" alignItems="center">
           <Icon as={MdLanguage} w="22px" h="22px" color="purple.600"/>
-          <Box ml="-12px" w="74px">
-            <LangSelect lang={lang} onChange={(e) => setLang(e.target.value as Langs)} />
+          <Box ml="-6px" w="68px">
+            <LangSelect selected={lang} onChange={selected => setLang(selected as Langs)} />
           </Box>
         </Flex>
       </Flex>

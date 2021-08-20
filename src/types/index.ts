@@ -25,4 +25,7 @@ export interface DOIResponse {
   }
 };
 
-export type Langs = 'en' | 'es' | 'pt-br';
+export interface Langs {
+  value: 'en' | 'es' | 'pt-br';
+  label: 'EN' | 'ES' | 'PT';
+}

@@ -1,6 +1,6 @@
 import { CSSReset, ChakraProvider } from '@chakra-ui/react';
 import theme from '../styles/theme';
-import { MainContextProvider } from '../context'
+import { MainContextProvider } from '../context';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </MainContextProvider>
     </ChakraProvider>
-  )
-}
+  );
+};
 
-export default MyApp
+export default MyApp;
