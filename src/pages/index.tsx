@@ -42,6 +42,7 @@ export default function Home() {
               <Text fontSize="sm" lineHeight="md">
                 Informe o 
                 <Tooltip 
+                  fontSize="xs"
                   label="A sigla DOI significa Digital Object Identifier (Identificador de Objeto Digital). Mais informação em https://www.doi.org/" 
                   aria-label="Identificador de Objeto Digital"
                 >

@@ -14,7 +14,8 @@ const customStyles = {
     backgroundColor: 'none', 
     fontSize: '16px',
     color: '#6261CE',
-    boxShadow: 'none'
+    boxShadow: 'none',
+    cursor: 'pointer'
   }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
     return {
@@ -25,7 +26,7 @@ const customStyles = {
         ? '#F6F5FF'
         : null,
       color: '#6261CE',
-      cursor: isDisabled ? 'not-allowed' : 'default',
+      cursor: isDisabled ? 'not-allowed' : 'pointer',
       ':active': {
         ...styles[':active'],
         backgroundColor: 'red',

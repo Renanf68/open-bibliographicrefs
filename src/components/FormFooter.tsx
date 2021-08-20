@@ -5,8 +5,8 @@ import { FaInfoCircle } from "react-icons/fa"
 export const FormFooter = () => {
   return (
     <Box mt="6">
-      <Text fontSize="sm">
-        * Campos obrigatórios
+      <Text>
+        * Campos obrigatórios.
       </Text>
     </Box>
   )

@@ -28,13 +28,11 @@ export const ABNTThesisFormat = ({
         Tipo de documento associado ao DOI:
         <DocumentBadge label={'Tese/dissertação'} />
       </Text>
-      <ResultBox>
-        <Text as="p" fontSize="sm">
-          {groupAuth} <strong>{title?.split(":")[0]}</strong>:{" "}
-          {title?.split(":")[1]}. {year ? year : "[add Ano]"}. {typeDoc} -{" "}
-          {vinculation}, {place ? place : "[Add local de publicação]"},{" "}
-          {year ? year : "[add Ano]"}. DOI: {doi}
-        </Text>
+      <ResultBox id="opt1">
+        {groupAuth} <strong>{title?.split(":")[0]}</strong>:{" "}
+        {title?.split(":")[1]}. {year ? year : "[add Ano]"}. {typeDoc} -{" "}
+        {vinculation}, {place ? place : "[Add local de publicação]"},{" "}
+        {year ? year : "[add Ano]"}. DOI: {doi}
       </ResultBox>
     </>
   )

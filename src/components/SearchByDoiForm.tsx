@@ -9,6 +9,7 @@ import {
   Text,
   HStack,
   Center,
+  Tooltip,
   useToast,
 } from "@chakra-ui/react";
 import { joinFullNameAuthors } from "../utils/utils";
@@ -241,7 +242,7 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
               id="year"
               label={'Ano'}
               placeholder="Ex: 2020"
-              w="100%"
+              w={{base: '100%', md: '200px'}}
               value={year}
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
                 setYear(e.currentTarget.value)
@@ -301,16 +302,23 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
                 />
                 {bookAuthArray.length > 1 && (
                   <Center pt="4">
-                    <Icon 
-                      aria-label="Excluir Autor"
-                      title="Excluir Autor"
-                      _focus={{ outline: "none" }}
-                      cursor="pointer"
-                      color="purple.600"
-                      fontSize="xl"
-                      as={MdClose} 
-                      onClick={() => deleteAuthor(auth.id)} 
-                    />
+                    <Tooltip 
+                      fontSize="xs"
+                      label="Remover autor" 
+                      aria-label="Remover autor"
+                      placement="top"
+                    >
+                      <Box>
+                        <Icon 
+                          _focus={{ outline: "none" }}
+                          cursor="pointer"
+                          color="purple.600"
+                          fontSize="xl"
+                          as={MdClose} 
+                          onClick={() => deleteAuthor(auth.id)} 
+                        />
+                      </Box>
+                    </Tooltip>
                   </Center>
                 )}
               </Flex>

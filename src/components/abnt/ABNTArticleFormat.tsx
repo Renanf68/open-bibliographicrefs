@@ -30,6 +30,7 @@ export const ABNTArticleFormat = ({
   publisher,
   doi,
 }: ArticleProps) => {
+  // UI
   return (
     <>
       <Text mt="8" fontWeight="medium">
@@ -37,24 +38,20 @@ export const ABNTArticleFormat = ({
         <DocumentBadge label={'Artigo científico'} />
       </Text>
       <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">Opção 1</Text>
-      <ResultBox>
-        <Text as="p" fontSize="sm">
-          {groupAuth} {title}. <strong>{journal}</strong>,{" "}
-          {place ? place : "[s.l.]"}, v.{volume}, n.
-          {number}, p.
-          {pages}, {year}. {publisher}. DOI: {doi}.
-        </Text>
+      <ResultBox id="opt1">
+        {groupAuth} {title}. <strong>{journal}</strong>,{" "}
+        {place ? place : "[s.l.]"}, v.{volume}, n.
+        {number}, p.
+        {pages}, {year}. {publisher}. DOI: {doi}.
       </ResultBox>
       {firstAuth && (
         <>
           <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">Opção 2</Text>
-          <ResultBox>
-            <Text as="p" fontSize="sm">
-              {firstAuth} et al. {title}. <strong>{journal}</strong>,{" "}
-              {place ? place : "[s.l.]"}, v.{volume}, n.
-              {number}, p.
-              {pages}, {year}. {publisher}. DOI: {doi}.
-            </Text>
+          <ResultBox id="opt2">
+            {firstAuth} et al. {title}. <strong>{journal}</strong>,{" "}
+            {place ? place : "[s.l.]"}, v.{volume}, n.
+            {number}, p.
+            {pages}, {year}. {publisher}. DOI: {doi}.
           </ResultBox>
         </>
       )}

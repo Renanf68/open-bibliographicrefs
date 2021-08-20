@@ -8,6 +8,7 @@ const overrides  = {
     mono: "Menlo, monospace",
   },
   fontSizes: {
+    xs: '14px',
     sm: '16px',
     md: '18px',
     lg: '30px',
