@@ -1,19 +1,20 @@
 import { Box, Center, Flex, Icon, Link, Text, Tooltip } from "@chakra-ui/react";
-import { FaGithub, FaHeart, FaRegHeart } from 'react-icons/fa'
-import { MdLanguage } from 'react-icons/md'
-import React, { ChangeEvent } from 'react'
+import { FaGithub, FaHeart, FaRegHeart } from 'react-icons/fa';
+import { MdLanguage } from 'react-icons/md';
+import React from 'react';
 import { Langs } from "../types";
 import { LangSelect } from "./LangSelect";
+import { useMainContext } from "../context";
 
 export const Header = () => {
+  // context
+  const { lang, setLang } = useMainContext();
   // state
-  const [lang, setLang] = React.useState<Langs>({ value: 'pt-br', label: 'PT' });
   const [likes, setLikes] = React.useState<number>(12);
   const [liked, setLiked] = React.useState(false);
   // handlers
   const AddLike = () => {
-    const localLike = localStorage.getItem('bibliographicrefs')
-    if(localLike) return;
+    if(liked) return;
     setLikes(prev => prev ? prev +1 : 1);
     setLiked(true);
     localStorage.setItem('bibliographicrefs', 'liked');
