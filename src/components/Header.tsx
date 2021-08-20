@@ -8,10 +8,12 @@ import { LangSelect } from "./LangSelect";
 export const Header = () => {
   // state
   const [lang, setLang] = React.useState<Langs>({ value: 'pt-br', label: 'PT' });
-  const [likes, setLikes] = React.useState<number>(100);
+  const [likes, setLikes] = React.useState<number>(12);
   const [liked, setLiked] = React.useState(false);
   // handlers
   const AddLike = () => {
+    const localLike = localStorage.getItem('bibliographicrefs')
+    if(localLike) return;
     setLikes(prev => prev ? prev +1 : 1);
     setLiked(true);
     localStorage.setItem('bibliographicrefs', 'liked');
@@ -54,7 +56,7 @@ export const Header = () => {
             ) : (
               <Text ml="2" fontSize="sm">
                 <Text as="span" color="purple.600" fontWeight="bold">
-                  {`Você e mais ${likes} `}
+                  {`Você e mais ${likes -1} `}
                 </Text>
                 pessoas curtiram
               </Text>
