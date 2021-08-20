@@ -6,6 +6,7 @@ import {ABNTBookFormat} from "./ABNTBookFormat"
 import {ABNTBookChapterFormat} from "./ABNTBookChapterFormat"
 import {ABNTThesisFormat} from "./ABNTThesisFormat"
 import { DOIResponse } from "../../types"
+import { ResultContainer } from "../ResultContainer"
 
 interface SearchByDoiResultABNTProps {
   data: DOIResponse;
@@ -35,14 +36,7 @@ export const SearchByDoiResultABNT = ({ data }: SearchByDoiResultABNTProps) => {
   const groupAuth = formatedAuthors.group
   const formatedBookAuthors = formatAuthorsStringToABNT(bookAuthors || "")
   return (
-    <Box
-      w="100%"
-      backgroundColor="gray.300"
-      mt="1rem"
-      py="2rem"
-      px="2rem"
-      borderRadius="sm"
-    >
+    <ResultContainer>
       {data.EntryType === "article" && (
         <ABNTArticleFormat
           {...{
@@ -106,6 +100,6 @@ export const SearchByDoiResultABNT = ({ data }: SearchByDoiResultABNTProps) => {
           }}
         />
       )}
-    </Box>
+    </ResultContainer>
   )
 }

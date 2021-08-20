@@ -1,5 +1,7 @@
 import React from "react";
 import { Text } from "@chakra-ui/react";
+import { DocumentBadge } from "../DocumentBadge";
+import { ResultBox } from "../ResultBox";
 
 interface ArticleProps {
   groupAuth: string
@@ -30,32 +32,30 @@ export const ABNTArticleFormat = ({
 }: ArticleProps) => {
   return (
     <>
-      <Text as="p" fontSize="sm" mb="1rem">
-        <strong>
-          Tipo de documento associdado ao doi:{" "}
-          <Text as="span" color="primary">
-            artigo científico
-          </Text>
-          .
-        </strong>
+      <Text mt="8" fontWeight="medium">
+        Tipo de documento associado ao DOI:
+        <DocumentBadge label={'Artigo científico'} />
       </Text>
-      <Text as="p" fontSize="sm">
-        {groupAuth} {title}. <strong>{journal}</strong>,{" "}
-        {place ? place : "[s.l.]"}, v.{volume}, n.
-        {number}, p.
-        {pages}, {year}. {publisher}. DOI: {doi}.
-      </Text>
+      <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">Opção 1</Text>
+      <ResultBox>
+        <Text as="p" fontSize="sm">
+          {groupAuth} {title}. <strong>{journal}</strong>,{" "}
+          {place ? place : "[s.l.]"}, v.{volume}, n.
+          {number}, p.
+          {pages}, {year}. {publisher}. DOI: {doi}.
+        </Text>
+      </ResultBox>
       {firstAuth && (
         <>
-          <Text as="p" fontSize="sm" color="red.400">
-            ou
-          </Text>
-          <Text as="p" fontSize="sm">
-            {firstAuth} et al. {title}. <strong>{journal}</strong>,{" "}
-            {place ? place : "[s.l.]"}, v.{volume}, n.
-            {number}, p.
-            {pages}, {year}. {publisher}. DOI: {doi}.
-          </Text>
+          <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">Opção 2</Text>
+          <ResultBox>
+            <Text as="p" fontSize="sm">
+              {firstAuth} et al. {title}. <strong>{journal}</strong>,{" "}
+              {place ? place : "[s.l.]"}, v.{volume}, n.
+              {number}, p.
+              {pages}, {year}. {publisher}. DOI: {doi}.
+            </Text>
+          </ResultBox>
         </>
       )}
     </>

@@ -1,5 +1,7 @@
 import React from "react"
 import { Text } from "@chakra-ui/react"
+import { DocumentBadge } from "../DocumentBadge"
+import { ResultBox } from "../ResultBox"
 
 interface BookProps {
   groupAuth: string
@@ -24,30 +26,28 @@ export const ABNTBookFormat = ({
 }: BookProps) => {
   return (
     <>
-      <Text as="p" fontSize="sm" mb="1rem">
-        <strong>
-          Tipo de documento associdado ao doi:{" "}
-          <Text as="span" color="primary">
-            livro
-          </Text>
-          .
-        </strong>
+      <Text mt="8" fontWeight="medium">
+        Tipo de documento associado ao DOI:
+        <DocumentBadge label={'Livro'} />
       </Text>
-      <Text as="p" fontSize="sm">
-        {groupAuth} <strong>{title}</strong>. {edition}{" "}
-        {place ? place : "[Add local de publicação]"}: {publisher}, {year}. DOI:{" "}
-        {doi}
-      </Text>
+      <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">Opção 1</Text>
+      <ResultBox>
+        <Text as="p" fontSize="sm">
+          {groupAuth} <strong>{title}</strong>. {edition}{" "}
+          {place ? place : "[Add local de publicação]"}: {publisher}, {year}. DOI:{" "}
+          {doi}
+        </Text>
+      </ResultBox>
       {firstAuth && (
         <>
-          <Text as="p" fontSize="sm" color="red.500">
-            ou
-          </Text>
-          <Text as="p" fontSize="sm">
-            {firstAuth} et al. <strong>{title}</strong>. {edition}{" "}
-            {place ? place : "[Add local de publicação]"}: {publisher}, {year}.
-            DOI: {doi}.
-          </Text>
+          <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">Opção 2</Text>
+          <ResultBox>
+            <Text as="p" fontSize="sm">
+              {firstAuth} et al. <strong>{title}</strong>. {edition}{" "}
+              {place ? place : "[Add local de publicação]"}: {publisher}, {year}.
+              DOI: {doi}.
+            </Text>
+          </ResultBox>
         </>
       )}
     </>

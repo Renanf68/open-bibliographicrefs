@@ -13,16 +13,14 @@ import {
 } from "@chakra-ui/react";
 import { joinFullNameAuthors } from "../utils/utils";
 import { FormFooter } from "./FormFooter";
-import { SearchByDoiResultABNT } from "./abnt/SearchByDoiResultABNT";
 import doiApi from "../services/doiapi";
 import BibtexParser from "../utils/bibtexParser";
-import { SearchByDoiResultAPA } from "./apa/SearchByDoiResultAPA";
-import { SearchByDoiResultVanc } from "./vancouver/SearchByDoiResultVanc";
 import { ExtraInputsBox } from "./SearchByDoiExtraInputsBox";
 import { DOIResponse, Standard } from '../types';
 import { MdClose, MdSearch } from 'react-icons/md'
 import { CustomInput } from "./CustomInput";
 import { CustomToast } from "./CustomToast";
+import { useMainContext } from "../context";
 
 interface SearchByDoiFormProps {
   standard: Standard;
@@ -40,12 +38,13 @@ interface Message {
 }
 
 export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
+  // context
+  const { searchResponse, setSearchResponse } = useMainContext();
   // state
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState<Message>();
   const [place, setPlace] = useState("")
   const [doi, setDoi] = useState("")
-  const [searchResponse, setSearchResponse] = useState({} as DOIResponse)
   const [edition, setEdition] = useState("")
   const [year, setYear] = useState("")
   const [typeDoc, setTypeDoc] = useState("")
@@ -182,184 +181,179 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
   }, [message])
   //UI
   return (
-    <Box mt="6" w="100%">
-      <Stack direction={{ base: 'column', lg: 'row'}} spacing={2} >
-        <CustomInput 
-          id="place"
-          label={'Local de publicação'}
-          placeholder="Ex: São Paulo"
-          value={place}
-          onChange={(e: React.FormEvent<HTMLInputElement>) =>
-            setPlace(e.currentTarget.value)
-          }
-        />
-        <CustomInput 
-          id="doi"
-          label={'DOI'}
-          placeholder="Ex: 10.5700/rausp1045"
-          value={doi}
-          onChange={(e: React.FormEvent<HTMLInputElement>) =>
-            setDoi(e.currentTarget.value)
-          }
-          isRequired
-        />
-        <Button
-          mt={{ base: '0', md: '16px !important'}}
-          w="50%"
-          fontFamily="Work Sans"
-          fontWeight="medium"
-          onClick={() => searchByDoi(doi)}
-        >
-          Buscar{" "}
-          {isLoading ? (
-            <Spinner color="white" size="xs" ml="1rem" mb="-0.2rem" />
-            ) : (
-            <Icon pl="2" as={MdSearch} w="28px" h="28px" />
-          )}
-        </Button>
-      </Stack>
-      {searchResponse?.EntryType === "book" && (
-        <ExtraInputsBox>
+    <>
+      <Box mt="6" w="100%">
+        <Stack direction={{ base: 'column', lg: 'row'}} spacing={2} >
           <CustomInput 
-            id="edition"
-            label={'Nº da edição'}
-            placeholder="Ex: 4. ed."
-            maxW="8rem"
-            value={edition}
+            id="place"
+            label={'Local de publicação'}
+            placeholder="Ex: São Paulo"
+            value={place}
             onChange={(e: React.FormEvent<HTMLInputElement>) =>
-              setEdition(e.currentTarget.value)
-            }
-          />
-        </ExtraInputsBox>
-      )}
-      {(searchResponse?.EntryType === "phdthesis" ||
-        searchResponse?.EntryType === "masterthesis") && (
-        <ExtraInputsBox>
-          <CustomInput 
-            mt="4"
-            id="year"
-            label={'Ano'}
-            placeholder="Ex: 2020"
-            w="100%"
-            value={year}
-            onChange={(e: React.FormEvent<HTMLInputElement>) =>
-              setYear(e.currentTarget.value)
+              setPlace(e.currentTarget.value)
             }
           />
           <CustomInput 
-            mt="4"
-            id="typeDoc"
-            label={'Tipo de documento'}
-            placeholder="Ex: Tese (Doutorado em Administração)"
-            w="100%"
-            value={typeDoc}
+            id="doi"
+            label={'DOI'}
+            placeholder="Ex: 10.5700/rausp1045"
+            value={doi}
             onChange={(e: React.FormEvent<HTMLInputElement>) =>
-              setTypeDoc(e.currentTarget.value)
+              setDoi(e.currentTarget.value)
             }
+            isRequired
           />
-          <CustomInput 
-            mt="4"
-            id="vinculation"
-            label={'Vinculação acadêmica'}
-            placeholder="Ex: Universidade Federal de Pernambuco"
-            w="100%"
-            value={vinculation}
-            onChange={(e: React.FormEvent<HTMLInputElement>) =>
-              setVinculation(e.currentTarget.value)
-            }
-          />
-        </ExtraInputsBox>
-      )}
-      {searchResponse?.EntryType === "incollection" && (
-        <ExtraInputsBox>
-          <CustomInput 
-            id="edition"
-            label={'Nº da edição'}
-            placeholder="Ex: 4. ed."
-            maxW="8rem"
-            value={edition}
-            onChange={(e: React.FormEvent<HTMLInputElement>) =>
-              setEdition(e.currentTarget.value)
-            }
-          />
-          <Flex mt="4" flexDir="row" justifyContent="space-between">
-            <Text>Nome completo dos autores do livro</Text>
-          </Flex>
-          {bookAuthArray.map((auth, index) => (
-            <Flex mt="2" key={index} flexDir="row">
+          <Button
+            mt={{ base: '0', md: '16px !important'}}
+            w="50%"
+            outline='none'
+            fontSize="sm"
+            _focus={{outline: 'none'}}
+            onClick={() => searchByDoi(doi)}
+          >
+            Buscar{" "}
+            {isLoading ? (
+              <Spinner color="white" size="xs" ml="1rem" mb="-0.2rem" />
+              ) : (
+              <Icon pl="2" as={MdSearch} w="28px" h="28px" />
+            )}
+          </Button>
+        </Stack>
+        {searchResponse?.EntryType === "book" && (
+          <ExtraInputsBox>
+            <CustomInput 
+              id="edition"
+              label={'Nº da edição'}
+              placeholder="Ex: 4. ed."
+              maxW="8rem"
+              value={edition}
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                setEdition(e.currentTarget.value)
+              }
+            />
+          </ExtraInputsBox>
+        )}
+        {(searchResponse?.EntryType === "phdthesis" ||
+          searchResponse?.EntryType === "masterthesis") && (
+          <ExtraInputsBox>
+            <CustomInput 
+              mt="4"
+              id="year"
+              label={'Ano'}
+              placeholder="Ex: 2020"
+              w="100%"
+              value={year}
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                setYear(e.currentTarget.value)
+              }
+            />
+            <CustomInput 
+              mt="4"
+              id="typeDoc"
+              label={'Tipo de documento'}
+              placeholder="Ex: Tese (Doutorado em Administração)"
+              w="100%"
+              value={typeDoc}
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                setTypeDoc(e.currentTarget.value)
+              }
+            />
+            <CustomInput 
+              mt="4"
+              id="vinculation"
+              label={'Vinculação acadêmica'}
+              placeholder="Ex: Universidade Federal de Pernambuco"
+              w="100%"
+              value={vinculation}
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                setVinculation(e.currentTarget.value)
+              }
+            />
+          </ExtraInputsBox>
+        )}
+        {searchResponse?.EntryType === "incollection" && (
+          <ExtraInputsBox>
+            <CustomInput 
+              id="edition"
+              label={'Nº da edição'}
+              placeholder="Ex: 4. ed."
+              maxW="8rem"
+              value={edition}
+              onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                setEdition(e.currentTarget.value)
+              }
+            />
+            <Flex mt="6" flexDir="row" justifyContent="space-between">
+              <Text fontWeight="medium">Nome completo dos autores do livro:</Text>
+            </Flex>
+            {bookAuthArray.map((auth, index) => (
+              <Flex key={index} flexDir="row">
+                <CustomInput 
+                  mt={index > 0 ? '1' : '0'}
+                  id={`auth-${index}`}
+                  label={`Nome autor ${index + 1}`}
+                  placeholder={`Digite o nome do autor ${index + 1}`}
+                  w={bookAuthArray.length === 1 ? '100%' : '98%'}
+                  value={auth.fullName}
+                  onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                    updateAuthors(index, e.currentTarget.value)
+                  }
+                />
+                {bookAuthArray.length > 1 && (
+                  <Center pt="4">
+                    <Icon 
+                      aria-label="Excluir Autor"
+                      title="Excluir Autor"
+                      _focus={{ outline: "none" }}
+                      cursor="pointer"
+                      color="purple.600"
+                      fontSize="xl"
+                      as={MdClose} 
+                      onClick={() => deleteAuthor(auth.id)} 
+                    />
+                  </Center>
+                )}
+              </Flex>
+            ))}
+            <Flex mt="4">
+              <Button
+                w="100%"
+                maxW="220px"
+                aria-label="Add Autor"
+                size="sm"
+                variant="outline"
+                _focus={{ outline: "none" }}
+                onClick={addAuthor}
+              >
+                Adicionar autor
+              </Button>
+            </Flex>
+            <HStack w="100%" mt="2" spacing={4}>
               <CustomInput 
-                id={`auth-${index}`}
-                label={`Nome autor ${index + 1}`}
-                placeholder={`Digite o nome do autor ${index + 1}`}
-                w={bookAuthArray.length === 1 ? '100%' : '98%'}
-                value={auth.fullName}
+                w="100%"
+                id="responsibility"
+                label={'Responsabilidade'}
+                placeholder="Ex: (org.) ou (orgs.)"
+                value={responsibility}
                 onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                  updateAuthors(index, e.currentTarget.value)
+                  setResponsibility(e.currentTarget.value)
                 }
               />
-              {bookAuthArray.length > 1 && (
-                <Center>
-                  <Icon 
-                    aria-label="Excluir Autor"
-                    title="Excluir Autor"
-                    _focus={{ outline: "none" }}
-                    cursor="pointer"
-                    color="red.500"
-                    fontSize="xl"
-                    as={MdClose} 
-                    onClick={() => deleteAuthor(auth.id)} 
-                  />
-                </Center>
-              )}
-            </Flex>
-          ))}
-          <Flex mt="2">
-            <Button
-              w="100%"
-              maxW="220px"
-              aria-label="Add Autor"
-              size="sm"
-              variant="secondary"
-              _focus={{ outline: "none" }}
-              onClick={addAuthor}
-            >
-              Adicionar autor
-            </Button>
-          </Flex>
-          <HStack w="100%" mt="4" spacing={4}>
-            <CustomInput 
-              w="100%"
-              id="responsibility"
-              label={'Responsabilidade'}
-              placeholder="Ex: (org.) ou (orgs.)"
-              value={responsibility}
-              onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                setResponsibility(e.currentTarget.value)
-              }
-            />
-            <CustomInput 
-              w="100%"
-              id="pages"
-              label={'Págs. inicial-final'}
-              placeholder="Ex: 12-32"
-              value={pages}
-              onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                setPages(e.currentTarget.value)
-              }
-            />
-          </HStack>
-        </ExtraInputsBox>
-      )}
-      {Object.keys(searchResponse).length > 0 && standard === "abnt" && (
-        <SearchByDoiResultABNT data={searchResponse} />
-      )}
-      {Object.keys(searchResponse).length > 0 && standard === "apa" && (
-        <SearchByDoiResultAPA data={searchResponse} />
-      )}
-      {Object.keys(searchResponse).length > 0 && standard === "vancouver" && (
-        <SearchByDoiResultVanc data={searchResponse} />
-      )}
-      <FormFooter />
-    </Box>
+              <CustomInput 
+                w="100%"
+                id="pages"
+                label={'Págs. inicial-final'}
+                placeholder="Ex: 12-32"
+                value={pages}
+                onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                  setPages(e.currentTarget.value)
+                }
+              />
+            </HStack>
+          </ExtraInputsBox>
+        )}
+        <FormFooter />
+      </Box>
+    </>
   );
 };

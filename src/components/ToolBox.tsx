@@ -4,12 +4,16 @@ import {
   FormControl,
   RadioGroup,
   Radio,
+  HStack,
 } from "@chakra-ui/react"
 import { SearchByDoiForm } from "./SearchByDoiForm"
 import { Standard } from "../types"
+import { useMainContext } from "../context"
 
 export const ToolBox = () => {
-  const [standard, setStandard] = React.useState<Standard>('abnt')
+  // context
+  const { standard, setStandard } = useMainContext();
+  // UI
   return (
     <Flex
       mt="4"
@@ -21,20 +25,19 @@ export const ToolBox = () => {
     >
       <FormControl as="fieldset">
         <RadioGroup
-          onChange={(value: Standard) => setStandard(value)}
-          value={standard}
           display="flex"
           flexDirection="row"
           justifyContent="center"
           colorScheme="purple"
+          size="sm"
+          value={standard}
+          onChange={(value: Standard) => setStandard(value)}
         >
-          <Radio borderColor="gray.400" value="abnt">ABNT</Radio>
-          <Radio borderColor="gray.400" value="apa" ml="1.6rem">
-            APA
-          </Radio>
-          <Radio borderColor="gray.400" value="vancouver" ml="1.6rem">
-            Vancouver
-          </Radio>
+          <HStack spacing={4}>
+            <Radio borderColor="gray.400" value="abnt">ABNT</Radio>
+            <Radio isDisabled borderColor="gray.400" value="apa">APA</Radio>
+            <Radio isDisabled borderColor="gray.400" value="vancouver">Vancouver</Radio>
+          </HStack>
         </RadioGroup>
       </FormControl>
       <SearchByDoiForm standard={standard} />

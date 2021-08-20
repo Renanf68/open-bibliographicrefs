@@ -2,7 +2,7 @@ export const Button = {
   // The styles all button have in common
   baseStyle: {
     height: '40px',
-    fontFamily: 'Work S',
+    fontFamily: 'Work Sans',
     fontWeight: 'medium',
     fontSize: 'sm',
     borderRadius: 'lg',
@@ -26,11 +26,11 @@ export const Button = {
       },
     },
     outline: {
-      'bg': 'white',
-      'borderColor': 'black',
+      color: 'purple.600',
+      'borderColor': 'purple.600',
+      'borderWidth': '1,5px',
       ':hover': {
-        color: 'gray.700',
-        borderColor: 'gray.700',
+        bg: 'purple.200',
       },
       ':disabled': {
         color: 'gray.500',

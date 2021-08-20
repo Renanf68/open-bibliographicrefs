@@ -1,23 +1,23 @@
 import { extendTheme } from "@chakra-ui/react"
 import { Button } from './components/Button'
 
-const customTheme = extendTheme({
+const overrides  = {
   fonts: {
     body: "Work Sans, system-ui, sans-serif",
     heading: "Work Sans, system-ui, sans-serif",
     mono: "Menlo, monospace",
   },
-  fontSize: {
+  fontSizes: {
     sm: '16px',
-    md: '24px',
-    lg: '45px',
+    md: '18px',
+    lg: '30px',
   },
-  fontWeight: {
+  fontWeights: {
     normal: 400,
     medium: 500,
     bold: 700,
   },
-  lineHeight: {
+  lineHeights: {
     sm: '18,77px',
     md: '22px',
     lg: '35,19px'
@@ -39,6 +39,6 @@ const customTheme = extendTheme({
   components: {
     Button,
   }
-});
+};
 
-export default customTheme
+export default extendTheme(overrides);

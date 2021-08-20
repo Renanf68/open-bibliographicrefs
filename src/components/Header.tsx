@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Icon, Link, Select, Text, Tooltip } from "@chakra-ui/react";
+import { Box, Center, Flex, Icon, Link, Text, Tooltip } from "@chakra-ui/react";
 import { FaGithub, FaHeart, FaRegHeart } from 'react-icons/fa'
 import { MdLanguage } from 'react-icons/md'
 import React from 'react'
@@ -74,7 +74,7 @@ export const Header = () => {
         </Center>
         <Flex w="300px" justifyContent="flex-end" alignItems="center">
           <Icon as={MdLanguage} w="22px" h="22px" color="purple.600"/>
-          <Box ml="-12px" w="70px">
+          <Box ml="-12px" w="74px">
             <LangSelect lang={lang} onChange={(e) => setLang(e.target.value as Langs)} />
           </Box>
         </Flex>

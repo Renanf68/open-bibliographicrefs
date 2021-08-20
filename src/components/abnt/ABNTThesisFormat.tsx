@@ -1,5 +1,7 @@
 import React from "react"
 import { Text } from "@chakra-ui/react"
+import { DocumentBadge } from "../DocumentBadge"
+import { ResultBox } from "../ResultBox"
 
 interface ThesisProps {
   groupAuth: string
@@ -22,21 +24,18 @@ export const ABNTThesisFormat = ({
 }: ThesisProps) => {
   return (
     <>
-      <Text as="p" fontSize="sm" mb="1rem">
-        <strong>
-          Tipo de documento associdado ao doi:{" "}
-          <Text as="span" color="primary">
-            tese/dissertação
-          </Text>
-          .
-        </strong>
+      <Text mt="8" mb="4" fontWeight="medium">
+        Tipo de documento associado ao DOI:
+        <DocumentBadge label={'Tese/dissertação'} />
       </Text>
-      <Text as="p" fontSize="sm">
-        {groupAuth} <strong>{title?.split(":")[0]}</strong>:{" "}
-        {title?.split(":")[1]}. {year ? year : "[add Ano]"}. {typeDoc} -{" "}
-        {vinculation}, {place ? place : "[Add local de publicação]"},{" "}
-        {year ? year : "[add Ano]"}. DOI: {doi}
-      </Text>
+      <ResultBox>
+        <Text as="p" fontSize="sm">
+          {groupAuth} <strong>{title?.split(":")[0]}</strong>:{" "}
+          {title?.split(":")[1]}. {year ? year : "[add Ano]"}. {typeDoc} -{" "}
+          {vinculation}, {place ? place : "[Add local de publicação]"},{" "}
+          {year ? year : "[add Ano]"}. DOI: {doi}
+        </Text>
+      </ResultBox>
     </>
   )
 }
