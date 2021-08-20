@@ -1,6 +1,5 @@
 import { Langs } from "../types"
 import Select from 'react-select'
-import { ChangeEvent } from "react";
 
 const options = [
   { value: 'en', label: 'EN' },
@@ -63,28 +62,5 @@ export const LangSelect = ({ selected, onChange }: LangSelectProps) => {
       onChange={onChange} 
       isSearchable={false}
     />
-  )
-}
-
-/*export const LangSelect2 = ({lang, ...props}: LangSelectProps) => {
-  return (
-    <Select 
-    px="1"
-    border="none"
-    color="purple.600"
-    fontSize="sm" 
-    outline="none"
-    _activeLink={{color: 'purple.600', bg: 'purple.200'}}
-    _active={{border: 'none'}}
-    _focus={{border: 'none'}}
-    cursor="pointer"
-    value={lang}
-    
-    {...props} 
-    >
-        <option value="en">EN</option>
-        <option value="es">ES</option>
-        <option value="pt-br">PT</option>
-    </Select>
-  )
-}*/
+  );
+};
