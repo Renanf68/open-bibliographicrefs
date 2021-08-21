@@ -176,21 +176,22 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
             }
             isRequired
           />
-          <Button
-            mt={{ base: '0', md: '16px !important'}}
-            w="50%"
-            outline='none'
-            fontSize="sm"
-            _focus={{outline: 'none'}}
-            onClick={() => searchByDoi(doi)}
-          >
-            {`${translation.buttonLabel} `}
-            {isLoading ? (
-              <Spinner color="white" size="xs" ml="1rem" mb="-0.2rem" />
-              ) : (
-              <Icon pl="2" as={MdSearch} w="28px" h="28px" />
-            )}
-          </Button>
+          <Box w={{base: '100%', md: '50%'}} pt="16px">
+            <Button
+              w='100%'
+              outline='none'
+              fontSize="sm"
+              _focus={{outline: 'none'}}
+              onClick={() => searchByDoi(doi)}
+            >
+              {`${translation.buttonLabel} `}
+              {isLoading ? (
+                <Spinner color="white" size="xs" ml="1rem" mb="-0.2rem" />
+                ) : (
+                  <Icon pl="2" as={MdSearch} w="28px" h="28px" />
+                  )}
+            </Button>
+          </Box>
         </Stack>
         {searchResponse?.EntryType === "book" && (
           <ExtraInputsBox title={translation.extraInputsBoxTitle}>
