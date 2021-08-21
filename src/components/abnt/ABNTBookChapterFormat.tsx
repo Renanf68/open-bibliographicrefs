@@ -2,7 +2,9 @@ import React from "react"
 import { Text } from "@chakra-ui/react"
 import { ResultBox } from "../ResultBox";
 import { DocumentBadge } from "../DocumentBadge";
+import { TranslationResultContainer } from "../../types";
 interface ChapterProps {
+  translation: TranslationResultContainer;
   groupAuth: string
   firstAuth?: string
   title: string
@@ -21,6 +23,7 @@ interface ChapterProps {
 }
 
 export const ABNTBookChapterFormat = ({
+  translation,
   groupAuth,
   firstAuth,
   title,
@@ -37,10 +40,12 @@ export const ABNTBookChapterFormat = ({
   return (
     <>
       <Text mt="8" fontWeight="medium">
-        Tipo de documento associado ao DOI:
+        {translation.associatedDocumentTypeTitle}
         <DocumentBadge label={'Capítulo de livro'} />
       </Text>
-      <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">Opção 1</Text>
+      <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">
+        {`${translation.option} 1`}
+      </Text>
       <ResultBox id="opt1">
         {groupAuth} {title}. In: {formatedBookAuthors?.group}
         {responsibility ? `${responsibility}.` : ""}{" "}
@@ -50,7 +55,9 @@ export const ABNTBookChapterFormat = ({
       </ResultBox>
       {firstAuth && (
         <>
-          <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">Opção 2</Text>
+          <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">
+            {`${translation.option} 2`}
+          </Text>
           {formatedBookAuthors?.firstAuth ? (
             <ResultBox id="opt2">
               {firstAuth} et al. {title}. In: {formatedBookAuthors?.firstAuth}

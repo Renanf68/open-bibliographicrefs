@@ -2,8 +2,10 @@ import React from "react";
 import { Text } from "@chakra-ui/react";
 import { DocumentBadge } from "../DocumentBadge";
 import { ResultBox } from "../ResultBox";
+import { TranslationResultContainer } from "../../types";
 
 interface ArticleProps {
+  translation: TranslationResultContainer;
   groupAuth: string
   firstAuth?: string
   title: string
@@ -18,6 +20,7 @@ interface ArticleProps {
 };
 
 export const ABNTArticleFormat = ({
+  translation,
   groupAuth,
   firstAuth,
   title,
@@ -34,10 +37,12 @@ export const ABNTArticleFormat = ({
   return (
     <>
       <Text mt="8" fontWeight="medium">
-        Tipo de documento associado ao DOI:
+        {translation.associatedDocumentTypeTitle}
         <DocumentBadge label={'Artigo científico'} />
       </Text>
-      <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">Opção 1</Text>
+      <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">
+        {`${translation.option} 1`}
+      </Text>
       <ResultBox id="opt1">
         {groupAuth} {title}. <strong>{journal}</strong>,{" "}
         {place ? place : "[s.l.]"}, v.{volume}, n.
@@ -46,7 +51,9 @@ export const ABNTArticleFormat = ({
       </ResultBox>
       {firstAuth && (
         <>
-          <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">Opção 2</Text>
+          <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">
+            {`${translation.option} 2`}
+          </Text>
           <ResultBox id="opt2">
             {firstAuth} et al. {title}. <strong>{journal}</strong>,{" "}
             {place ? place : "[s.l.]"}, v.{volume}, n.

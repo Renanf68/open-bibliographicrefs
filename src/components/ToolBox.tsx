@@ -7,10 +7,14 @@ import {
   HStack,
 } from "@chakra-ui/react"
 import { SearchByDoiForm } from "./SearchByDoiForm"
-import { Standard } from "../types"
+import { Standard, TranslationToolBox } from "../types"
 import { useMainContext } from "../context"
 
-export const ToolBox = () => {
+interface TollBoxProps {
+  translation: TranslationToolBox;
+}
+
+export const ToolBox = ({ translation }: TollBoxProps) => {
   // context
   const { standard, setStandard } = useMainContext();
   // UI
@@ -40,7 +44,7 @@ export const ToolBox = () => {
           </HStack>
         </RadioGroup>
       </FormControl>
-      <SearchByDoiForm standard={standard} />
+      <SearchByDoiForm translation={translation} standard={standard} />
     </Flex>
   )
 }

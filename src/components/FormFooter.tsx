@@ -2,8 +2,13 @@ import React from "react";
 import { Flex, HStack, Icon, Text } from "@chakra-ui/react";
 import { MdArrowDownward } from 'react-icons/md';
 import { useMainContext } from "../context";
+import { TranslationToolBox } from "../types";
 
-export const FormFooter = () => {
+interface FormFooterProps {
+  translation: TranslationToolBox;
+}
+
+export const FormFooter = ({ translation }: FormFooterProps) => {
   // context
   const { searchResponse } = useMainContext();
   // helpers
@@ -16,7 +21,7 @@ export const FormFooter = () => {
   return (
     <Flex mt="6" justifyContent="space-between">
       <Text>
-        * Campos obrigatórios.
+        {`* ${translation.requiredFields}`}
       </Text>
       {
         isResponse && (
@@ -27,7 +32,7 @@ export const FormFooter = () => {
             cursor="pointer" 
             onClick={scrollToBottom} 
           >
-            <Text>Ver resultado</Text>
+            <Text>{translation.viewResult}</Text>
             <Icon as={MdArrowDownward} />
           </HStack>
         )

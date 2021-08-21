@@ -2,8 +2,10 @@ import React from "react"
 import { Text } from "@chakra-ui/react"
 import { DocumentBadge } from "../DocumentBadge"
 import { ResultBox } from "../ResultBox"
+import { TranslationResultContainer } from "../../types";
 
 interface BookProps {
+  translation: TranslationResultContainer;
   groupAuth: string
   firstAuth?: string
   title: string
@@ -15,6 +17,7 @@ interface BookProps {
 }
 
 export const ABNTBookFormat = ({
+  translation,
   groupAuth,
   firstAuth,
   title,
@@ -27,10 +30,12 @@ export const ABNTBookFormat = ({
   return (
     <>
       <Text mt="8" fontWeight="medium">
-        Tipo de documento associado ao DOI:
+        {translation.associatedDocumentTypeTitle}
         <DocumentBadge label={'Livro'} />
       </Text>
-      <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">Opção 1</Text>
+      <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">
+        {`${translation.option} 1`}
+      </Text>
       <ResultBox id="opt1">
         {groupAuth} <strong>{title}</strong>. {edition}{" "}
         {place ? place : "[Add local de publicação]"}: {publisher}, {year}. DOI:{" "}
@@ -38,7 +43,9 @@ export const ABNTBookFormat = ({
       </ResultBox>
       {firstAuth && (
         <>
-          <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">Opção 2</Text>
+          <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">
+            {`${translation.option} 2`}
+          </Text>
           <ResultBox id="opt2">
             {firstAuth} et al. <strong>{title}</strong>. {edition}{" "}
             {place ? place : "[Add local de publicação]"}: {publisher}, {year}.

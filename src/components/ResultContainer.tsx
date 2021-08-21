@@ -1,6 +1,12 @@
 import { Box, Heading, Text } from "@chakra-ui/react"
+import { TranslationResultContainer } from "../types"
 
-export const ResultContainer = ({children}) => {
+interface ResultContainerProps {
+  translation: TranslationResultContainer;
+  children: React.ReactNode | React.ReactNode[];
+}
+
+export const ResultContainer = ({ translation, children }: ResultContainerProps) => {
   return (
     <Box
       mt="4"
@@ -11,11 +17,11 @@ export const ResultContainer = ({children}) => {
       borderRadius="lg"
     >
       <Heading as="h2" fontSize="22px" fontWeight="medium" color="purple.600">
-        Sua referência formatada
+        {translation.title}
       </Heading>
       <Box mt="4">{children}</Box>
-      <Text mt="8" fontSize="xs">* Para colar no seu editor de textos, use a opção "mesclar formatação".</Text>
-      <Text mt="4" fontSize="xs">** Algumas regras da norma escolhida podem ainda não estar cobertas por esta ferramenta.</Text>
+      <Text mt="8" fontSize="xs">{`* ${translation.pasteRecomendation}`}</Text>
+      <Text mt="4" fontSize="xs">{`** ${translation.standardWarning}`}</Text>
     </Box>
   )
 }

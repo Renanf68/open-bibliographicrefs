@@ -5,14 +5,15 @@ import {ABNTArticleFormat} from "./ABNTArticleFormat"
 import {ABNTBookFormat} from "./ABNTBookFormat"
 import {ABNTBookChapterFormat} from "./ABNTBookChapterFormat"
 import {ABNTThesisFormat} from "./ABNTThesisFormat"
-import { DOIResponse } from "../../types"
+import { DOIResponse, TranslationResultContainer } from "../../types"
 import { ResultContainer } from "../ResultContainer"
 
 interface SearchByDoiResultABNTProps {
+  translation: TranslationResultContainer;
   data: DOIResponse;
 }
 
-export const SearchByDoiResultABNT = ({ data }: SearchByDoiResultABNTProps) => {
+export const SearchByDoiResultABNT = ({ translation, data }: SearchByDoiResultABNTProps) => {
   const {
     author,
     doi,
@@ -36,10 +37,11 @@ export const SearchByDoiResultABNT = ({ data }: SearchByDoiResultABNTProps) => {
   const groupAuth = formatedAuthors.group
   const formatedBookAuthors = formatAuthorsStringToABNT(bookAuthors || "")
   return (
-    <ResultContainer>
+    <ResultContainer translation={translation}>
       {data.EntryType === "article" && (
         <ABNTArticleFormat
           {...{
+            translation,
             groupAuth,
             firstAuth,
             title,
@@ -57,6 +59,7 @@ export const SearchByDoiResultABNT = ({ data }: SearchByDoiResultABNTProps) => {
       {data.EntryType === "book" && (
         <ABNTBookFormat
           {...{
+            translation,
             groupAuth,
             firstAuth,
             title,
@@ -71,6 +74,7 @@ export const SearchByDoiResultABNT = ({ data }: SearchByDoiResultABNTProps) => {
       {data.EntryType === "incollection" && (
         <ABNTBookChapterFormat
           {...{
+            translation,
             groupAuth,
             firstAuth,
             title,
@@ -90,6 +94,7 @@ export const SearchByDoiResultABNT = ({ data }: SearchByDoiResultABNTProps) => {
         data.EntryType === "masterthesis") && (
         <ABNTThesisFormat
           {...{
+            translation,
             groupAuth,
             title,
             place,

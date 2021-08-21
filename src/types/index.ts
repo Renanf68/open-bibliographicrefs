@@ -28,4 +28,65 @@ export interface DOIResponse {
 export interface Langs {
   value: 'en' | 'es' | 'pt-br';
   label: 'EN' | 'ES' | 'PT';
+};
+
+export interface TranslationHeader {
+  likes: {
+    youAndMore: string;
+    peopleLiked: string;
+    didYouLike: string;
+  };
+  contribute: string;
 }
+
+export interface TranslationToolBox {
+  messages: {
+    success: string;
+    documentTypeNotSupported: string;
+    documentNotFound: string;
+    requiredFields: string;
+  }
+  exampleInitials: string;
+  publiPlace: string;
+  buttonLabel: string;
+  requiredFields: string;
+  viewResult: string;
+  extraInputsBoxTitle: string;
+  year: string;
+  editionNumber: string;
+  documentType: string;
+  academicAffiliation: string;
+  authorsFullName: string;
+  authorFullNamePlaceholder: string;
+  eachAuthorName: string;
+  AddAuthorButtonLabel: string;
+  removeAuthorLabel: string;
+  org: string;
+  pages: string;
+}
+
+export interface TranslationResultContainer {
+  title: string;
+  option: string;
+  associatedDocumentTypeTitle: string;
+  paper: string;
+  bookChapter: string;
+  book: string;
+  thesis: string;
+  copyIconLabel: string;
+  pasteRecomendation: string;
+  standardWarning: string;
+}
+
+export interface Translation {
+  title: string;
+  description: string;
+  content: {
+    header: TranslationHeader;
+    subtitle: string;
+    doiBoxFirtPart: string;
+    doiBoxSecondPart: string;
+    toolBox: TranslationToolBox;
+    ResultContainer: TranslationResultContainer;
+  };
+};

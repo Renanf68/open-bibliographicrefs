@@ -4,19 +4,14 @@ import Document, {
   Main,
   NextScript
 } from 'next/document'
-
-import { Seo } from '../components/Seo'
 export default class MyDocument extends Document {
   render(): JSX.Element {
     return (
-      <Html lang="pt-BR">
+      <Html>
         <Head>
-          <Seo
-            metaDescription="Projeto Open Source para busca e formatação de referências bibliográficas a partir do DOI. O material suportado até o momento é constituído por artigos, teses, dissertações, livros e capítulos de livros. Somos abertos e cresceremos juntos!"
-            title="Referências bibliográficas"
-            author="@renan_costa_m"
-            canonical_url="https://referenciasbibliograficas.com.br/"
-          />
+          <link rel="alternate" hrefLang="pt-BR" href="https://referenciasbibliograficas.com.br" />
+          <link rel="alternate" hrefLang="en" href="https://referenciasbibliograficas.com.br/en" />
+          <link rel="alternate" hrefLang="es" href="https://referenciasbibliograficas.com.br/es" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link 
             href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700&display=swap" 

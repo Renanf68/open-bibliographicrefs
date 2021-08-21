@@ -2,8 +2,10 @@ import React from "react"
 import { Text } from "@chakra-ui/react"
 import { DocumentBadge } from "../DocumentBadge"
 import { ResultBox } from "../ResultBox"
+import { TranslationResultContainer } from "../../types"
 
 interface ThesisProps {
+  translation: TranslationResultContainer;
   groupAuth: string
   title: string
   place?: string
@@ -14,6 +16,7 @@ interface ThesisProps {
 }
 
 export const ABNTThesisFormat = ({
+  translation,
   groupAuth,
   title,
   place,
@@ -25,7 +28,7 @@ export const ABNTThesisFormat = ({
   return (
     <>
       <Text mt="8" mb="4" fontWeight="medium">
-        Tipo de documento associado ao DOI:
+        {translation.associatedDocumentTypeTitle}
         <DocumentBadge label={'Tese/dissertação'} />
       </Text>
       <ResultBox id="opt1">

@@ -17,13 +17,14 @@ import { FormFooter } from "./FormFooter";
 import doiApi from "../services/doiapi";
 import BibtexParser from "../utils/bibtexParser";
 import { ExtraInputsBox } from "./SearchByDoiExtraInputsBox";
-import { DOIResponse, Standard } from '../types';
+import { DOIResponse, Standard, TranslationToolBox } from '../types';
 import { MdClose, MdSearch } from 'react-icons/md'
 import { CustomInput } from "./CustomInput";
 import { CustomToast } from "./CustomToast";
 import { useMainContext } from "../context";
 
 interface SearchByDoiFormProps {
+  translation: TranslationToolBox;
   standard: Standard;
 }
 
@@ -38,7 +39,7 @@ interface Message {
   message: string;
 }
 
-export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
+export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps) => {
   // context
   const { searchResponse, setSearchResponse } = useMainContext();
   // state
@@ -79,12 +80,12 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
             setIsLoading(false)
             return setMessage({
               type: 'error',
-              message: "Tipo de documento não suportado!",
+              message: translation.messages.documentTypeNotSupported,
             })
           }
           setMessage({
             type: 'success',
-            message: "Uma correspondência encontrada!",
+            message: translation.messages.success,
           })
           //console.log("resposta", res.entries[0])
           setSearchResponse(res.entries[0])
@@ -95,14 +96,13 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
           setIsLoading(false)
           setMessage({
             type: 'warning',
-            message:
-              "Desculpe, o DOI informado não obteve nenhuma correspondência, ou o servidor não pode ser acessado.",
+            message: translation.messages.documentNotFound
           })
         })
     } else {
       setMessage({
         type: 'error',
-        message: "Favor preencher os campos obrigatórios.",
+        message: translation.messages.requiredFields
       })
     }
   }
@@ -187,8 +187,8 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
         <Stack direction={{ base: 'column', lg: 'row'}} spacing={2} >
           <CustomInput 
             id="place"
-            label={'Local de publicação'}
-            placeholder="Ex: São Paulo"
+            label={translation.publiPlace}
+            placeholder={`${translation.exampleInitials}: São Paulo`}
             value={place}
             onChange={(e: React.FormEvent<HTMLInputElement>) =>
               setPlace(e.currentTarget.value)
@@ -197,7 +197,7 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
           <CustomInput 
             id="doi"
             label={'DOI'}
-            placeholder="Ex: 10.5700/rausp1045"
+            placeholder={`${translation.exampleInitials}: 10.5700/rausp1045`}
             value={doi}
             onChange={(e: React.FormEvent<HTMLInputElement>) =>
               setDoi(e.currentTarget.value)
@@ -212,7 +212,7 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
             _focus={{outline: 'none'}}
             onClick={() => searchByDoi(doi)}
           >
-            Buscar{" "}
+            {`${translation.buttonLabel} `}
             {isLoading ? (
               <Spinner color="white" size="xs" ml="1rem" mb="-0.2rem" />
               ) : (
@@ -221,11 +221,11 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
           </Button>
         </Stack>
         {searchResponse?.EntryType === "book" && (
-          <ExtraInputsBox>
+          <ExtraInputsBox title={translation.extraInputsBoxTitle}>
             <CustomInput 
               id="edition"
-              label={'Nº da edição'}
-              placeholder="Ex: 4. ed."
+              label={translation.editionNumber}
+              placeholder={`${translation.exampleInitials}: 4. ed.`}
               maxW="8rem"
               value={edition}
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
@@ -236,12 +236,12 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
         )}
         {(searchResponse?.EntryType === "phdthesis" ||
           searchResponse?.EntryType === "masterthesis") && (
-          <ExtraInputsBox>
+          <ExtraInputsBox title={translation.extraInputsBoxTitle}>
             <CustomInput 
               mt="4"
               id="year"
-              label={'Ano'}
-              placeholder="Ex: 2020"
+              label={translation.year}
+              placeholder={`${translation.exampleInitials}: 2020`}
               w={{base: '100%', md: '200px'}}
               value={year}
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
@@ -251,8 +251,8 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
             <CustomInput 
               mt="4"
               id="typeDoc"
-              label={'Tipo de documento'}
-              placeholder="Ex: Tese (Doutorado em Administração)"
+              label={translation.documentType}
+              placeholder={`${translation.exampleInitials}: Tese (Doutorado em Administração)`}
               w="100%"
               value={typeDoc}
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
@@ -262,8 +262,8 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
             <CustomInput 
               mt="4"
               id="vinculation"
-              label={'Vinculação acadêmica'}
-              placeholder="Ex: Universidade Federal de Pernambuco"
+              label={translation.academicAffiliation}
+              placeholder={`${translation.exampleInitials}: Universidade Federal de Pernambuco`}
               w="100%"
               value={vinculation}
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
@@ -273,11 +273,11 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
           </ExtraInputsBox>
         )}
         {searchResponse?.EntryType === "incollection" && (
-          <ExtraInputsBox>
+          <ExtraInputsBox title={translation.extraInputsBoxTitle}>
             <CustomInput 
               id="edition"
-              label={'Nº da edição'}
-              placeholder="Ex: 4. ed."
+              label={translation.editionNumber}
+              placeholder={`${translation.exampleInitials}: 4. ed.`}
               maxW="8rem"
               value={edition}
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
@@ -285,15 +285,15 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
               }
             />
             <Flex mt="6" flexDir="row" justifyContent="space-between">
-              <Text fontWeight="medium">Nome completo dos autores do livro:</Text>
+              <Text fontWeight="medium">{translation.authorsFullName}</Text>
             </Flex>
             {bookAuthArray.map((auth, index) => (
               <Flex key={index} flexDir="row">
                 <CustomInput 
                   mt={index > 0 ? '1' : '0'}
                   id={`auth-${index}`}
-                  label={`Nome autor ${index + 1}`}
-                  placeholder={`Digite o nome do autor ${index + 1}`}
+                  label={`${translation.eachAuthorName} ${index + 1}`}
+                  placeholder={`${translation.authorFullNamePlaceholder} ${index + 1}`}
                   w={bookAuthArray.length === 1 ? '100%' : '98%'}
                   value={auth.fullName}
                   onChange={(e: React.FormEvent<HTMLInputElement>) =>
@@ -304,8 +304,8 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
                   <Center pt="4">
                     <Tooltip 
                       fontSize="xs"
-                      label="Remover autor" 
-                      aria-label="Remover autor"
+                      label={translation.removeAuthorLabel} 
+                      aria-label={translation.removeAuthorLabel}
                       placement="top"
                     >
                       <Box>
@@ -327,21 +327,21 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
               <Button
                 w="100%"
                 maxW="220px"
-                aria-label="Add Autor"
+                aria-label={translation.AddAuthorButtonLabel}
                 size="sm"
                 variant="outline"
                 _focus={{ outline: "none" }}
                 onClick={addAuthor}
               >
-                Adicionar autor
+                {translation.AddAuthorButtonLabel}
               </Button>
             </Flex>
             <HStack w="100%" mt="2" spacing={4}>
               <CustomInput 
                 w="100%"
                 id="responsibility"
-                label={'Responsabilidade'}
-                placeholder="Ex: (org.) ou (orgs.)"
+                label={translation.org}
+                placeholder={`${translation.exampleInitials}: (org.) ou (orgs.)`}
                 value={responsibility}
                 onChange={(e: React.FormEvent<HTMLInputElement>) =>
                   setResponsibility(e.currentTarget.value)
@@ -350,8 +350,8 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
               <CustomInput 
                 w="100%"
                 id="pages"
-                label={'Págs. inicial-final'}
-                placeholder="Ex: 12-32"
+                label={translation.pages}
+                placeholder={`${translation.exampleInitials}: 12-32`}
                 value={pages}
                 onChange={(e: React.FormEvent<HTMLInputElement>) =>
                   setPages(e.currentTarget.value)
@@ -360,7 +360,7 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
             </HStack>
           </ExtraInputsBox>
         )}
-        <FormFooter />
+        <FormFooter translation={translation}/>
       </Box>
     </>
   );
