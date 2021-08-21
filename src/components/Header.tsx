@@ -72,10 +72,12 @@ export const Header = ({ translation }: HeaderProps) => {
           </Box>
           <Box display={{base: 'block', lg: 'none'}}>
             {
-              likes && (
+              likes ? (
                 <Text ml="2" color="purple.600" fontWeight="bold">
                   {likes}
                 </Text>
+              ) : (
+                <Spinner ml="2" size="xs" color="purple.600" /> 
               )
             }
           </Box>
