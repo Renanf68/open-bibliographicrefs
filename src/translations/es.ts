@@ -1,55 +1,55 @@
 export default {
   title: 'Referencias bibliográficas',
-  description: 'Projeto Open Source para busca e formatação de referências bibliográficas a partir do DOI. O material suportado até o momento é constituído por artigos, teses, dissertações, livros e capítulos de livros. Somos abertos e cresceremos juntos!',
+  description: 'Proyecto Open Source para buscar y formatear referencias bibliográficas de DOI. El material apoyado hasta el momento consta de artículos, tesis, disertaciones, libros y capítulos de libros. ¡Estamos abiertos y creceremos juntos!',
   content: {
     header: {
       likes: {
-        youAndMore: 'Você e mais',
-        peopleLiked: 'pessoas curtiram',
-        didYouLike: 'Curtiu?',
+        youAndMore: 'A ti y a más',
+        peopleLiked: 'personas les gustó',
+        didYouLike: '¿Te gustó?',
       },
-      contribute: 'Contribua!',
-      contributeAriaLabel: 'Link para o repositório no github. Contribua!'
+      contribute: '¡Contribuir!',
+      contributeAriaLabel: 'Enlace al repositorio en github. Contribuya!'
     },
-    subtitle: 'Ferramenta Open Source de apoio à comunidade acadêmica.',
-    doiBoxFirtPart: 'Informe o',
-    doiBoxSecondPart: 'e busque pela correspondente referência bibliográfica de artigos, teses, dissertações, livros e capítulos de livros.',
+    subtitle: 'Herramienta de código abierto para apoyar a la comunidad académica.',
+    doiBoxFirtPart: 'Informar al',
+    doiBoxSecondPart: 'y buscar la referencia bibliográfica correspondiente de artículos, tesis, disertaciones, libros y capítulos de libros.',
     toolBox: {
       messages: {
-        success: 'Uma correspondência encontrada!',
-        documentTypeNotSupported: 'Tipo de documento não suportado!',
-        documentNotFound: 'Desculpe, o DOI informado não obteve nenhuma correspondência, ou o servidor não pode ser acessado.',
-        requiredFields: 'Favor preencher os campos obrigatórios.'
+        success: '¡Se encontró una coincidencia!',
+        documentTypeNotSupported: 'tipo de documento no es compatible!',
+        documentNotFound: 'Lo sentimos, el DOI que ingresó no obtuvo ninguna coincidencia, o no se puede acceder al servidor.',
+        requiredFields: 'Por favor complete los campos requeridos.'
       },
-      exampleInitials: 'Ex:',
-      publiPlace: 'Local de publicação',
+      exampleInitials: 'Ej.:',
+      publiPlace: 'Lugar de publicacion',
       buttonLabel: 'Buscar',
-      requiredFields: 'Campos obrigatórios',
+      requiredFields: 'Campos obligatórios',
       viewResult: 'Ver resultado',
-      extraInputsBoxTitle: 'Preencha os dados abaixo para concluir a formatação da referência:',
-      year: 'Ano',
-      editionNumber: 'Nº da edição',
+      extraInputsBoxTitle: 'Complete los detalles a continuación para completar el formato de la referencia:',
+      year: 'Año',
+      editionNumber: 'Edición No.',
       documentType: 'Tipo de documento',
-      academicAffiliation: 'Vinculação acadêmica',
-      authorsFullName: 'Nome completo dos autores do livro:',
-      authorFullNamePlaceholder: 'Digite o nome do autor',
-      eachAuthorName: 'Nome autor',
-      AddAuthorButtonLabel: 'Adicionar autor',
-      removeAuthorLabel: 'Remover autor',
+      academicAffiliation: 'Afiliación académica',
+      authorsFullName: 'Nombre completo de los autores del libro:',
+      authorFullNamePlaceholder: 'Ingrese el nombre del autor',
+      eachAuthorName: 'Nombre del autor',
+      AddAuthorButtonLabel: 'Agregar autor',
+      removeAuthorLabel: 'Quitar autor',
       org: 'Editores/Orgs',
-      pages: 'Págs. inicial-final'
+      pages: 'Pags. inicial-final'
     },
     ResultContainer: {
-      title: 'Sua referência formatada',
-      option: 'Opção',
-      associatedDocumentTypeTitle: 'Tipo de documento associado ao DOI:',
-      paper: 'Artigo científico',
-      bookChapter: 'Capítulo de livro',
-      book: 'Livro',
-      thesis: 'Tese/dissertação',
+      title: 'Tu referencia formateada',
+      option: 'Opción',
+      associatedDocumentTypeTitle: 'Tipo de documento asociado con DOI:',
+      paper: 'Artículo científico',
+      bookChapter: 'Capítulo del libro',
+      book: 'Libro',
+      thesis: 'Tesis/disertación',
       copyIconLabel: 'Copiar',
-      pasteRecomendation: 'Para colar no seu editor de textos, use a opção "mesclar formatação".',
-      standardWarning: 'Algumas regras da norma escolhida podem ainda não estar cobertas por esta ferramenta.'
+      pasteRecomendation: 'Para pegar en su editor de texto, use la opción "fusionar formato".',
+      standardWarning: 'Es posible que esta herramienta aún no cubra algunas reglas del estándar elegido.'
     }
   }
 }

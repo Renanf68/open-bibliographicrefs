@@ -21,7 +21,7 @@ export default {
         documentNotFound: 'Desculpe, o DOI informado não obteve nenhuma correspondência, ou o servidor não pode ser acessado.',
         requiredFields: 'Favor preencher os campos obrigatórios.'
       },
-      exampleInitials: 'Ex:',
+      exampleInitials: 'Ex.:',
       publiPlace: 'Local de publicação',
       buttonLabel: 'Buscar',
       requiredFields: 'Campos obrigatórios',
