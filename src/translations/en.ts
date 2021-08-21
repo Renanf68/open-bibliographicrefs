@@ -4,8 +4,8 @@ export default {
   content: {
     header: {
       likes: {
-        youAndMore: 'You and more',
-        peopleLiked: 'people liked',
+        youAndMore: 'You and',
+        peopleLiked: 'other people like',
         didYouLike: 'Did you like?',
       },
       contribute: 'Contribute!',
