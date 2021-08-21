@@ -12,7 +12,7 @@ export const FormFooter = ({ translation }: FormFooterProps) => {
   // context
   const { searchResponse } = useMainContext();
   // helpers
-  const isResponse = Object.keys(searchResponse).length > 0;
+  const isResponse = searchResponse.EntryKey !== '';
   // handlers
   const scrollToBottom = () => {
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
