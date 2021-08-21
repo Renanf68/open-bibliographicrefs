@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Icon, Link, Text, Tooltip } from "@chakra-ui/react";
+import { Box, Center, Flex, Icon, Link, Spinner, Text, Tooltip } from "@chakra-ui/react";
 import { FaGithub, FaHeart, FaRegHeart } from 'react-icons/fa';
 import { MdLanguage } from 'react-icons/md';
 import React from 'react';
@@ -49,27 +49,36 @@ export const Header = ({ translation }: HeaderProps) => {
             cursor="pointer"
             onClick={handleLike}
           />
-          {
-            likes ? !liked ? (
-              <Text ml="2" fontSize="sm">
-                <Text as="span" color="purple.600" fontWeight="bold">
-                  {`${likes} `}
-                </Text>
-                {translation.likes.peopleLiked}
-              </Text>  
-            ) : (
-              <Text ml="2" fontSize="sm">
-                <Text as="span" color="purple.600" fontWeight="bold">
-                  {`${translation.likes.youAndMore} ${likes -1} `}
-                </Text>
-                {translation.likes.peopleLiked}
-              </Text>
+          <Box display={{base: 'none', lg: 'block'}}>
+            {
+              likes ? !liked ? (
+                <Text ml="2" fontSize="sm">
+                  <Text as="span" color="purple.600" fontWeight="bold">
+                    {`${likes} `}
+                  </Text>
+                  {translation.likes.peopleLiked}
+                </Text>  
               ) : (
-              <Text ml="2" fontSize="sm" color="purple.600" fontWeight="bold">
-                {translation.likes.didYouLike}
-              </Text>  
-            ) 
-          }
+                <Text ml="2" fontSize="sm">
+                  <Text as="span" color="purple.600" fontWeight="bold">
+                    {`${translation.likes.youAndMore} ${likes -1} `}
+                  </Text>
+                  {translation.likes.peopleLiked}
+                </Text>
+                ) : (
+                <Spinner ml="2" size="xs" color="purple.600" />  
+              ) 
+            }
+          </Box>
+          <Box display={{base: 'block', lg: 'none'}}>
+            {
+              likes && (
+                <Text ml="2" color="purple.600" fontWeight="bold">
+                  {likes}
+                </Text>
+              )
+            }
+          </Box>
         </Flex>
         <Center w="300px">
           <Tooltip label={`${translation.contribute} =)`} aria-label={translation.contributeAriaLabel}>

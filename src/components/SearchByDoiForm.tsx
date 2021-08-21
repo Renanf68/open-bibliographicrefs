@@ -156,7 +156,7 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
   return (
     <>
       <Box mt="6" w="100%">
-        <Stack direction={{ base: 'column', lg: 'row'}} spacing={2} >
+        <Stack direction={{ base: 'column', md: 'row'}} spacing={2} >
           <CustomInput 
             id="place"
             label={translation.publiPlace}
