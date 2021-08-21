@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Flex,
   Icon,
@@ -43,17 +43,17 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
   // context
   const { searchResponse, setSearchResponse } = useMainContext();
   // state
-  const [isLoading, setIsLoading] = useState(false)
-  const [message, setMessage] = useState<Message>();
-  const [place, setPlace] = useState("")
-  const [doi, setDoi] = useState("")
-  const [edition, setEdition] = useState("")
-  const [year, setYear] = useState("")
-  const [typeDoc, setTypeDoc] = useState("")
-  const [vinculation, setVinculation] = useState("")
-  const [bookAuthArray, setBookAuthArray] = useState([authorsObj])
-  const [responsibility, setResponsibility] = useState("")
-  const [pages, setPages] = useState("")
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [message, setMessage] = React.useState<Message>();
+  const [place, setPlace] = React.useState("")
+  const [doi, setDoi] = React.useState("")
+  const [edition, setEdition] = React.useState("")
+  const [year, setYear] = React.useState("")
+  const [typeDoc, setTypeDoc] = React.useState("")
+  const [vinculation, setVinculation] = React.useState("")
+  const [bookAuthArray, setBookAuthArray] = React.useState([authorsObj])
+  const [responsibility, setResponsibility] = React.useState("")
+  const [pages, setPages] = React.useState("")
   const toast = useToast();
   // handlers
   const searchByDoi = (doi: string) => {
@@ -126,7 +126,7 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
     setBookAuthArray(prevState => prevState.filter(author => author.id !== id))
   }
   // side effects
-  useEffect(() => {
+  React.useEffect(() => {
     if (Object.keys(searchResponse).length > 0) {
       setSearchResponse(prevState => {
         const { Fields } = prevState
@@ -134,8 +134,8 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
         return { ...prevState, Fields }
       })
     }
-  }, [edition])
-  useEffect(() => {
+  }, [edition, searchResponse, setSearchResponse])
+  React.useEffect(() => {
     if (Object.keys(searchResponse).length > 0) {
       setSearchResponse(prevState => {
         const { Fields } = prevState
@@ -145,8 +145,8 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
         return { ...prevState, Fields }
       })
     }
-  }, [year, typeDoc, vinculation])
-  useEffect(() => {
+  }, [year, typeDoc, vinculation, searchResponse, setSearchResponse])
+  React.useEffect(() => {
     if (Object.keys(searchResponse).length > 0) {
       const newString = joinFullNameAuthors(bookAuthArray)
       setSearchResponse(prevState => {
@@ -155,8 +155,8 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
         return { ...prevState, Fields }
       })
     }
-  }, [bookAuthArray])
-  useEffect(() => {
+  }, [bookAuthArray, searchResponse, setSearchResponse])
+  React.useEffect(() => {
     if (Object.keys(searchResponse).length > 0) {
       setSearchResponse(prevState => {
         const { Fields } = prevState
@@ -165,12 +165,13 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
         return { ...prevState, Fields }
       })
     }
-  }, [responsibility, pages])
-  useEffect(() => {
+  }, [responsibility, pages, searchResponse, setSearchResponse])
+  React.useEffect(() => {
     if(message) {
       toast({
         id: message.message,
         duration: 8000,
+        // eslint-disable-next-line react/display-name
         render: () => (
           <CustomToast
             type={message.type}
@@ -179,7 +180,7 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
         ),
       });
     }
-  }, [message])
+  }, [message, toast])
   //UI
   return (
     <>

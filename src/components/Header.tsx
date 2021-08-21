@@ -73,7 +73,11 @@ export const Header = ({ translation }: HeaderProps) => {
         </Flex>
         <Center w="300px">
           <Tooltip label={`${translation.contribute} =)`} aria-label={translation.contributeAriaLabel}>
-            <Link href="https://github.com/Renanf68/open-bibliographicrefs" isExternal>
+            <Link 
+              href="https://github.com/Renanf68/open-bibliographicrefs" 
+              _focus={{outline: 'none'}}  
+              isExternal
+            >
               <Icon as={FaGithub} w="22px" h="22px" />
             </Link>
           </Tooltip>

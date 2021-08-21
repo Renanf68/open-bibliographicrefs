@@ -4,7 +4,7 @@ export default function BibtexParser(arg0) {
     // Passed a string, synchronous call without 'new'
     var tempStorage = {}
     var entries = []
-    function accumulator(entry) {
+    const accumulator = (entry) => {
       entries.push(entry)
     }
     var parser = BibtexParser.call(tempStorage, accumulator)

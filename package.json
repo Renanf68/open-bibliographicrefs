@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "export": "next build && next export",
+    "deploy": "next build && next export && firebase deploy"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.6.6",
