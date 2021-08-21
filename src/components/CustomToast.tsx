@@ -1,4 +1,4 @@
-import { Box, HStack, Icon, Text, useToast } from '@chakra-ui/react';
+import { Box, Flex, Icon, Text, useToast } from '@chakra-ui/react';
 import { MdClose, MdErrorOutline, MdHighlightOff } from 'react-icons/md';
 import { FaRegCheckCircle } from 'react-icons/fa';
 import React from 'react';
@@ -42,9 +42,9 @@ export const CustomToast = ({ type, message }: CustomToastProps) => {
       fontSize="sm"
       fontWeight="medium"
     >
-      <HStack spacing={4}>
+      <Flex justifyContent="space-between" alignItems="center">
         <MessageIcon type={type} />
-        <Box>
+        <Box px="2">
           <Text>{message}</Text>
         </Box>
         <Icon
@@ -53,7 +53,7 @@ export const CustomToast = ({ type, message }: CustomToastProps) => {
           color="#AEAEAE"
           onClick={() => toast.closeAll()}
         />
-      </HStack>
+      </Flex>
     </Box>
   );
 };
