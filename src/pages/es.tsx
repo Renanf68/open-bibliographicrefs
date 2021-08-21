@@ -27,7 +27,7 @@ export default function Home() {
         />
       </Head>
       <Header translation={translation.content.header} />
-      <Center minH="100vh" pt="100px" pb={searchResponse ? '12' : '8'}>
+      <Center minH="100vh" pt="100px" pb={searchResponse.EntryKey ? '12' : '8'}>
         <Container>
           <Flex flexDir="column" justifyContent="center">
             <Heading as="h1" fontSize="lg" lineHeight="lg" textAlign="center">
@@ -59,13 +59,13 @@ export default function Home() {
               </Text>
             </Flex>
             <ToolBox translation={translation.content.toolBox} />
-            {Object.keys(searchResponse).length > 0 && standard === "abnt" && (
+            {searchResponse.EntryKey && standard === "abnt" && (
               <SearchByDoiResultABNT translation={translation.content.ResultContainer} data={searchResponse} />
             )}
-            {Object.keys(searchResponse).length > 0 && standard === "apa" && (
+            {searchResponse.EntryKey && standard === "apa" && (
               <SearchByDoiResultAPA data={searchResponse} />
             )}
-            {Object.keys(searchResponse).length > 0 && standard === "vancouver" && (
+            {searchResponse.EntryKey && standard === "vancouver" && (
               <SearchByDoiResultVanc data={searchResponse} />
             )}
           </Flex>

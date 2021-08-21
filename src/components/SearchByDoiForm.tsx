@@ -17,8 +17,8 @@ import { FormFooter } from "./FormFooter";
 import doiApi from "../services/doiapi";
 import BibtexParser from "../utils/bibtexParser";
 import { ExtraInputsBox } from "./SearchByDoiExtraInputsBox";
-import { DOIResponse, Standard, TranslationToolBox } from '../types';
-import { MdClose, MdSearch } from 'react-icons/md'
+import { FieldKey, Standard, TranslationToolBox } from '../types';
+import { MdClose, MdSearch } from 'react-icons/md';
 import { CustomInput } from "./CustomInput";
 import { CustomToast } from "./CustomToast";
 import { useMainContext } from "../context";
@@ -26,41 +26,43 @@ import { useMainContext } from "../context";
 interface SearchByDoiFormProps {
   translation: TranslationToolBox;
   standard: Standard;
-}
+};
 
 const authorsObj = {
   id: Math.floor(Date.now()),
   fullName: "",
-}
+};
 
 type MessageType = 'success' | 'warning' | 'error'; 
 interface Message {
   type: MessageType;
   message: string;
-}
+};
 
 export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps) => {
   // context
-  const { searchResponse, setSearchResponse } = useMainContext();
+  const { searchResponse, searchResponseDispatch } = useMainContext();
+  const { 
+    doi, 
+    place, 
+    edition, 
+    year, 
+    typeDoc, 
+    vinculation, 
+    responsibility, 
+    pages  
+  } = searchResponse.Fields;
   // state
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(false);
   const [message, setMessage] = React.useState<Message>();
-  const [place, setPlace] = React.useState("")
-  const [doi, setDoi] = React.useState("")
-  const [edition, setEdition] = React.useState("")
-  const [year, setYear] = React.useState("")
-  const [typeDoc, setTypeDoc] = React.useState("")
-  const [vinculation, setVinculation] = React.useState("")
-  const [bookAuthArray, setBookAuthArray] = React.useState([authorsObj])
-  const [responsibility, setResponsibility] = React.useState("")
-  const [pages, setPages] = React.useState("")
+  const [bookAuthArray, setBookAuthArray] = React.useState([authorsObj]);
   const toast = useToast();
   // handlers
   const searchByDoi = (doi: string) => {
-    setSearchResponse({} as DOIResponse)
-    setMessage(undefined)
+    searchResponseDispatch({type: 'clear_state'});
+    setMessage(undefined);
     if (doi) {
-      setIsLoading(true)
+      setIsLoading(true);
       doiApi
         .get(`${doi}`, {
           headers: {
@@ -68,8 +70,8 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
           },
         })
         .then(response => {
-          let res = BibtexParser(response.data)
-          res.entries[0].Fields.place = place
+          let res = BibtexParser(response.data);
+          res.entries[0].Fields.place = place;
           if (
             res.entries[0].EntryType !== "article" &&
             res.entries[0].EntryType !== "phdthesis" &&
@@ -77,19 +79,18 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
             res.entries[0].EntryType !== "book" &&
             res.entries[0].EntryType !== "incollection"
           ) {
-            setIsLoading(false)
+            setIsLoading(false);
             return setMessage({
               type: 'error',
               message: translation.messages.documentTypeNotSupported,
-            })
-          }
+            });
+          };
           setMessage({
             type: 'success',
             message: translation.messages.success,
-          })
-          //console.log("resposta", res.entries[0])
-          setSearchResponse(res.entries[0])
-          setIsLoading(false)
+          });
+          searchResponseDispatch({type: 'update_state', payload: res.entries[0]});
+          setIsLoading(false);
         })
         .catch(error => {
           console.log(error)
@@ -97,75 +98,45 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
           setMessage({
             type: 'warning',
             message: translation.messages.documentNotFound
-          })
-        })
+          });
+        });
     } else {
       setMessage({
         type: 'error',
         message: translation.messages.requiredFields
-      })
-    }
-  }
+      });
+    };
+  };
   const addAuthor = () => {
     const newArray = [
       ...bookAuthArray,
       { ...authorsObj, id: Math.floor(Date.now()) },
-    ]
-    setBookAuthArray(newArray)
-  }
+    ];
+    setBookAuthArray(newArray);
+  };
   const updateAuthors = (position: number, value: string) => {
     const updatedAuthors = bookAuthArray.map((item, index) => {
       if (index === position) {
         return { ...item, fullName: value }
-      }
-      return item
-    })
-    setBookAuthArray(updatedAuthors)
-  }
+      };
+      return item;
+    });
+    setBookAuthArray(updatedAuthors);
+  };
   const deleteAuthor = (id: number) => {
-    setBookAuthArray(prevState => prevState.filter(author => author.id !== id))
-  }
+    setBookAuthArray(prevState => prevState.filter(author => author.id !== id));
+  };
+  const handleFieldChange = (key: FieldKey, value: string) => {
+    searchResponseDispatch({type: 'update_fields', payload: { key, value }});
+  };
   // side effects
   React.useEffect(() => {
-    if (Object.keys(searchResponse).length > 0) {
-      setSearchResponse(prevState => {
-        const { Fields } = prevState
-        Fields["edition"] = edition
-        return { ...prevState, Fields }
-      })
-    }
-  }, [edition, searchResponse, setSearchResponse])
-  React.useEffect(() => {
-    if (Object.keys(searchResponse).length > 0) {
-      setSearchResponse(prevState => {
-        const { Fields } = prevState
-        Fields["year"] = year
-        Fields["typeDoc"] = typeDoc
-        Fields["vinculation"] = vinculation
-        return { ...prevState, Fields }
-      })
-    }
-  }, [year, typeDoc, vinculation, searchResponse, setSearchResponse])
-  React.useEffect(() => {
-    if (Object.keys(searchResponse).length > 0) {
-      const newString = joinFullNameAuthors(bookAuthArray)
-      setSearchResponse(prevState => {
-        const { Fields } = prevState
-        Fields["bookAuthors"] = newString
-        return { ...prevState, Fields }
-      })
-    }
-  }, [bookAuthArray, searchResponse, setSearchResponse])
-  React.useEffect(() => {
-    if (Object.keys(searchResponse).length > 0) {
-      setSearchResponse(prevState => {
-        const { Fields } = prevState
-        Fields["responsibility"] = responsibility
-        Fields["pages"] = pages
-        return { ...prevState, Fields }
-      })
-    }
-  }, [responsibility, pages, searchResponse, setSearchResponse])
+    const newString = joinFullNameAuthors(bookAuthArray)
+    searchResponseDispatch({
+      type: 'update_fields', 
+      payload: { key: 'bookAuthors', value: newString }
+    })
+  }, [bookAuthArray, searchResponseDispatch]);
   React.useEffect(() => {
     if(message) {
       toast({
@@ -180,7 +151,7 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
         ),
       });
     }
-  }, [message, toast])
+  }, [message, toast]);
   //UI
   return (
     <>
@@ -190,18 +161,18 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
             id="place"
             label={translation.publiPlace}
             placeholder={`${translation.exampleInitials}: São Paulo`}
-            value={place}
+            value={place ?? ''}
             onChange={(e: React.FormEvent<HTMLInputElement>) =>
-              setPlace(e.currentTarget.value)
+              handleFieldChange('place', e.currentTarget.value)
             }
           />
           <CustomInput 
             id="doi"
             label={'DOI'}
             placeholder={`${translation.exampleInitials}: 10.5700/rausp1045`}
-            value={doi}
+            value={doi ?? ''}
             onChange={(e: React.FormEvent<HTMLInputElement>) =>
-              setDoi(e.currentTarget.value)
+              handleFieldChange('doi', e.currentTarget.value)
             }
             isRequired
           />
@@ -230,7 +201,7 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
               maxW="8rem"
               value={edition}
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                setEdition(e.currentTarget.value)
+                handleFieldChange('edition', e.currentTarget.value)
               }
             />
           </ExtraInputsBox>
@@ -246,7 +217,7 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
               w={{base: '100%', md: '200px'}}
               value={year}
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                setYear(e.currentTarget.value)
+                handleFieldChange('year', e.currentTarget.value)
               }
             />
             <CustomInput 
@@ -257,7 +228,7 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
               w="100%"
               value={typeDoc}
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                setTypeDoc(e.currentTarget.value)
+                handleFieldChange('typeDoc', e.currentTarget.value)
               }
             />
             <CustomInput 
@@ -268,7 +239,7 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
               w="100%"
               value={vinculation}
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                setVinculation(e.currentTarget.value)
+                handleFieldChange('vinculation', e.currentTarget.value)
               }
             />
           </ExtraInputsBox>
@@ -282,7 +253,7 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
               maxW="8rem"
               value={edition}
               onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                setEdition(e.currentTarget.value)
+                handleFieldChange('edition', e.currentTarget.value)
               }
             />
             <Flex mt="6" flexDir="row" justifyContent="space-between">
@@ -345,7 +316,7 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
                 placeholder={`${translation.exampleInitials}: (org.) ou (orgs.)`}
                 value={responsibility}
                 onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                  setResponsibility(e.currentTarget.value)
+                  handleFieldChange('responsibility', e.currentTarget.value)
                 }
               />
               <CustomInput 
@@ -355,7 +326,7 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
                 placeholder={`${translation.exampleInitials}: 12-32`}
                 value={pages}
                 onChange={(e: React.FormEvent<HTMLInputElement>) =>
-                  setPages(e.currentTarget.value)
+                  handleFieldChange('pages', e.currentTarget.value)
                 }
               />
             </HStack>

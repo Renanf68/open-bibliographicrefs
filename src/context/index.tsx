@@ -1,20 +1,20 @@
 import { useRouter } from 'next/dist/client/router';
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { DOIResponse, Langs, Standard } from '../types';
 import firebase from 'firebase/app';
 import getFirebaseClient from '../../firebaseApp';
-
+import { Actions, initialState, searchResponseReducer } from './searchResponseReducer';
 
 interface MainContextProps {
   lang: Langs;
   likes: number;
   standard?: Standard;
-  searchResponse?: DOIResponse;
+  searchResponse: DOIResponse;
   setLang(lang: Langs): void;
   addLikes(): void;
   setStandard(standard: Standard): void;
-  setSearchResponse: Dispatch<SetStateAction<DOIResponse>>;
-}
+  searchResponseDispatch: React.Dispatch<Actions>;
+};
 
 const MainContext = React.createContext<MainContextProps>(
   {} as MainContextProps
@@ -22,23 +22,22 @@ const MainContext = React.createContext<MainContextProps>(
 
 interface Props {
   children: React.ReactNode | React.ReactNode[];
-}
+};
 
 export const MainContextProvider = ({ children }: Props) => {
   // libs
-  const router = useRouter()
+  const router = useRouter();
   // state
   const [lang, setLang] = React.useState<Langs>({ value: 'pt-BR', label: 'PT' });
   const [likes, setLikes] = React.useState(0);
   const [standard, setStandard] = React.useState<Standard>('abnt');
-  const [searchResponse, setSearchResponse] = React.useState({} as DOIResponse);
   const [db, setDb] = React.useState<firebase.database.Database>();
+  const [searchResponse, searchResponseDispatch] = React.useReducer(searchResponseReducer, initialState);
   // handlers
   const addLikes = () => {
     if(!db) return;
     db.ref('/').update({ likes: firebase.database.ServerValue.increment(1) });
-    console.log('Add!')
-  }
+  };
   // side effects
   React.useEffect(() => {
     const lang = navigator.language
@@ -61,7 +60,6 @@ export const MainContextProvider = ({ children }: Props) => {
       if(db) setDb(db);
     })();
   }, []);
-  console.log('Render !')
   // UI
   return (
     <MainContext.Provider
@@ -73,7 +71,7 @@ export const MainContextProvider = ({ children }: Props) => {
         setLang,
         addLikes,
         setStandard,
-        setSearchResponse,
+        searchResponseDispatch,
       }}
     >
       {children}
