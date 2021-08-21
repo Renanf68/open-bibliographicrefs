@@ -293,7 +293,7 @@ export const SearchByDoiForm = ({ translation, standard }: SearchByDoiFormProps)
                   mt={index > 0 ? '1' : '0'}
                   id={`auth-${index}`}
                   label={`${translation.eachAuthorName} ${index + 1}`}
-                  placeholder={`${translation.authorFullNamePlaceholder} ${index + 1}`}
+                  placeholder={translation.authorFullNamePlaceholder}
                   w={bookAuthArray.length === 1 ? '100%' : '98%'}
                   value={auth.fullName}
                   onChange={(e: React.FormEvent<HTMLInputElement>) =>

@@ -2,11 +2,15 @@ import { Box, Center, Flex, Icon, Link, Text, Tooltip } from "@chakra-ui/react";
 import { FaGithub, FaHeart, FaRegHeart } from 'react-icons/fa';
 import { MdLanguage } from 'react-icons/md';
 import React from 'react';
-import { Langs } from "../types";
+import { Langs, TranslationHeader } from "../types";
 import { LangSelect } from "./LangSelect";
 import { useMainContext } from "../context";
 
-export const Header = () => {
+interface HeaderProps {
+  translation: TranslationHeader;
+}
+
+export const Header = ({ translation }: HeaderProps) => {
   // context
   const { lang, setLang } = useMainContext();
   // state
@@ -52,24 +56,24 @@ export const Header = () => {
                 <Text as="span" color="purple.600" fontWeight="bold">
                   {`${likes} `}
                 </Text>
-                pessoas curtiram
+                {translation.likes.peopleLiked}
               </Text>  
             ) : (
               <Text ml="2" fontSize="sm">
                 <Text as="span" color="purple.600" fontWeight="bold">
-                  {`Você e mais ${likes -1} `}
+                  {`${translation.likes.youAndMore} ${likes -1} `}
                 </Text>
-                pessoas curtiram
+                {translation.likes.peopleLiked}
               </Text>
               ) : (
               <Text ml="2" fontSize="sm" color="purple.600" fontWeight="bold">
-                Curtiu?
+                {translation.likes.didYouLike}
               </Text>  
             ) 
           }
         </Flex>
         <Center w="300px">
-          <Tooltip label="Contribua! =)" aria-label="Link para o repositório no github. Contribua!">
+          <Tooltip label={`${translation.contribute} =)`} aria-label={translation.contributeAriaLabel}>
             <Link href="https://github.com/Renanf68/open-bibliographicrefs" isExternal>
               <Icon as={FaGithub} w="22px" h="22px" />
             </Link>

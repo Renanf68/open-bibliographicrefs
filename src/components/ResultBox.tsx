@@ -1,13 +1,15 @@
 import { Box, Center, Flex, Icon, Text, Tooltip } from "@chakra-ui/react";
 import { MdContentCopy } from 'react-icons/md';
 import React from 'react';
+import { TranslationResultContainer } from "../types";
 
 interface ResultBoxProps {
   id: string;
+  translation: TranslationResultContainer;
   children: React.ReactNode | React.ReactNode[];
 }
 
-export const ResultBox = ({ id, children }: ResultBoxProps) => {
+export const ResultBox = ({ id, translation, children }: ResultBoxProps) => {
   // state
   const [isCopied, setIsCopied] = React.useState(false);
   // handlers
@@ -28,8 +30,8 @@ export const ResultBox = ({ id, children }: ResultBoxProps) => {
       <Center minW="36px" pl="2">
         <Tooltip 
           fontSize="xs"
-          label="Copiar" 
-          aria-label="copiar"
+          label={translation.copyIconLabel}
+          aria-label={translation.copyIconLabel}
           placement="top"
         >
           <Box p="1" _hover={{ bg: 'purple.200' }}>

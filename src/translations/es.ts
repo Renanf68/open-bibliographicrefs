@@ -1,5 +1,5 @@
 export default {
-  title: 'Referências bibliográficas',
+  title: 'Referencias bibliográficas',
   description: 'Projeto Open Source para busca e formatação de referências bibliográficas a partir do DOI. O material suportado até o momento é constituído por artigos, teses, dissertações, livros e capítulos de livros. Somos abertos e cresceremos juntos!',
   content: {
     header: {

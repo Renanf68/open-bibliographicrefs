@@ -41,12 +41,12 @@ export const ABNTBookChapterFormat = ({
     <>
       <Text mt="8" fontWeight="medium">
         {translation.associatedDocumentTypeTitle}
-        <DocumentBadge label={'Capítulo de livro'} />
+        <DocumentBadge label={translation.bookChapter} />
       </Text>
       <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">
         {`${translation.option} 1`}
       </Text>
-      <ResultBox id="opt1">
+      <ResultBox id="opt1" translation={translation}>
         {groupAuth} {title}. In: {formatedBookAuthors?.group}
         {responsibility ? `${responsibility}.` : ""}{" "}
         <strong>{booktitle}</strong>. {edition}.{" "}
@@ -59,7 +59,7 @@ export const ABNTBookChapterFormat = ({
             {`${translation.option} 2`}
           </Text>
           {formatedBookAuthors?.firstAuth ? (
-            <ResultBox id="opt2">
+            <ResultBox id="opt2" translation={translation}>
               {firstAuth} et al. {title}. In: {formatedBookAuthors?.firstAuth}
               et al. {responsibility ? `${responsibility}.` : ""}{" "}
               <strong>{booktitle}</strong>. {edition}.{" "}
@@ -67,7 +67,7 @@ export const ABNTBookChapterFormat = ({
               . p. {pages}.
             </ResultBox>
           ) : (
-            <ResultBox id="opt2">
+            <ResultBox id="opt2" translation={translation}>
               {firstAuth} et al. {title}. In: {formatedBookAuthors?.group}{" "}
               {responsibility ? `${responsibility}.` : ""}
               <strong>{booktitle}</strong>. {edition}.{" "}

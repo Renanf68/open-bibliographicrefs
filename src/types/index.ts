@@ -26,7 +26,7 @@ export interface DOIResponse {
 };
 
 export interface Langs {
-  value: 'en' | 'es' | 'pt-br';
+  value: 'en' | 'es' | 'pt-BR';
   label: 'EN' | 'ES' | 'PT';
 };
 
@@ -37,6 +37,7 @@ export interface TranslationHeader {
     didYouLike: string;
   };
   contribute: string;
+  contributeAriaLabel: string;
 }
 
 export interface TranslationToolBox {

@@ -9,7 +9,7 @@ import { SearchByDoiResultABNT } from '../components/abnt/SearchByDoiResultABNT'
 import { SearchByDoiResultAPA } from '../components/apa/SearchByDoiResultAPA';
 import { SearchByDoiResultVanc } from '../components/vancouver/SearchByDoiResultVanc';
 import { Seo } from '../components/Seo';
-import translation from '../translations/pt';
+import translation from '../translations/es';
 
 export default function Home() {
   //context

@@ -4,8 +4,8 @@ import Select from 'react-select'
 const options = [
   { value: 'en', label: 'EN' },
   { value: 'es', label: 'ES' },
-  { value: 'pt-br', label: 'PT' }
-]
+  { value: 'pt-BR', label: 'PT' }
+] as Langs[];
 
 const customStyles = {
   control: (styles) => ({ 
@@ -20,17 +20,11 @@ const customStyles = {
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
     return {
       ...styles,
-      backgroundColor: isDisabled
-        ? null
-        : isFocused
+      backgroundColor: isFocused
         ? '#F6F5FF'
         : null,
       color: '#6261CE',
       cursor: isDisabled ? 'not-allowed' : 'pointer',
-      ':active': {
-        ...styles[':active'],
-        backgroundColor: 'red',
-      },
     };
   },
   dropdownIndicator: styles => ({

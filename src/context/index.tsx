@@ -1,3 +1,4 @@
+import { useRouter } from 'next/dist/client/router';
 import React, { Dispatch, SetStateAction } from 'react';
 import { DOIResponse, Langs, Standard } from '../types';
 
@@ -20,11 +21,25 @@ interface Props {
 }
 
 export const MainContextProvider = ({ children }: Props) => {
+  // libs
+  const router = useRouter()
   // state
-  const [lang, setLang] = React.useState<Langs>({ value: 'pt-br', label: 'PT' });
+  const [lang, setLang] = React.useState<Langs>({ value: 'pt-BR', label: 'PT' });
   const [standard, setStandard] = React.useState<Standard>('abnt');
   const [searchResponse, setSearchResponse] = React.useState({} as DOIResponse);
-  // handlers
+  // side effects
+  React.useEffect(() => {
+    const lang = navigator.language
+    const langGeneric = lang.split("-")[0]
+    if(langGeneric === 'en') setLang({ value: 'en', label: 'EN' });
+    else if(langGeneric === 'es') setLang({ value: 'es', label: 'ES' });
+  }, []);
+  React.useEffect(() => {
+    if(lang.value === 'en') router.push('/en');
+    else if(lang.value === 'es') router.push('/es');
+    else router.push('/');
+  }, [lang]);
+  console.log('Render !')
   // UI
   return (
     <MainContext.Provider

@@ -29,9 +29,9 @@ export const ABNTThesisFormat = ({
     <>
       <Text mt="8" mb="4" fontWeight="medium">
         {translation.associatedDocumentTypeTitle}
-        <DocumentBadge label={'Tese/dissertação'} />
+        <DocumentBadge label={translation.thesis} />
       </Text>
-      <ResultBox id="opt1">
+      <ResultBox id="opt1" translation={translation}>
         {groupAuth} <strong>{title?.split(":")[0]}</strong>:{" "}
         {title?.split(":")[1]}. {year ? year : "[add Ano]"}. {typeDoc} -{" "}
         {vinculation}, {place ? place : "[Add local de publicação]"},{" "}

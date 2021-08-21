@@ -38,12 +38,12 @@ export const ABNTArticleFormat = ({
     <>
       <Text mt="8" fontWeight="medium">
         {translation.associatedDocumentTypeTitle}
-        <DocumentBadge label={'Artigo científico'} />
+        <DocumentBadge label={translation.paper} />
       </Text>
       <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">
         {`${translation.option} 1`}
       </Text>
-      <ResultBox id="opt1">
+      <ResultBox id="opt1" translation={translation}>
         {groupAuth} {title}. <strong>{journal}</strong>,{" "}
         {place ? place : "[s.l.]"}, v.{volume}, n.
         {number}, p.
@@ -54,7 +54,7 @@ export const ABNTArticleFormat = ({
           <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">
             {`${translation.option} 2`}
           </Text>
-          <ResultBox id="opt2">
+          <ResultBox id="opt2" translation={translation}>
             {firstAuth} et al. {title}. <strong>{journal}</strong>,{" "}
             {place ? place : "[s.l.]"}, v.{volume}, n.
             {number}, p.

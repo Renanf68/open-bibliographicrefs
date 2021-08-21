@@ -31,12 +31,12 @@ export const ABNTBookFormat = ({
     <>
       <Text mt="8" fontWeight="medium">
         {translation.associatedDocumentTypeTitle}
-        <DocumentBadge label={'Livro'} />
+        <DocumentBadge label={translation.book} />
       </Text>
       <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">
         {`${translation.option} 1`}
       </Text>
-      <ResultBox id="opt1">
+      <ResultBox id="opt1" translation={translation}>
         {groupAuth} <strong>{title}</strong>. {edition}{" "}
         {place ? place : "[Add local de publicação]"}: {publisher}, {year}. DOI:{" "}
         {doi}
@@ -46,7 +46,7 @@ export const ABNTBookFormat = ({
           <Text mt="4" mb="1" fontSize="12px" fontWeight="bold">
             {`${translation.option} 2`}
           </Text>
-          <ResultBox id="opt2">
+          <ResultBox id="opt2" translation={translation}>
             {firstAuth} et al. <strong>{title}</strong>. {edition}{" "}
             {place ? place : "[Add local de publicação]"}: {publisher}, {year}.
             DOI: {doi}.
