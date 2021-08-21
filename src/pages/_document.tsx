@@ -9,6 +9,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <link rel="icon" href="/favicon.ico" />
           <link rel="alternate" hrefLang="pt-BR" href="https://referenciasbibliograficas.com.br" />
           <link rel="alternate" hrefLang="en" href="https://referenciasbibliograficas.com.br/en" />
           <link rel="alternate" hrefLang="es" href="https://referenciasbibliograficas.com.br/es" />

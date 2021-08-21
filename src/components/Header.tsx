@@ -12,14 +12,13 @@ interface HeaderProps {
 
 export const Header = ({ translation }: HeaderProps) => {
   // context
-  const { lang, setLang } = useMainContext();
+  const { lang, setLang, likes, addLikes } = useMainContext();
   // state
-  const [likes, setLikes] = React.useState<number>(12);
   const [liked, setLiked] = React.useState(false);
   // handlers
-  const AddLike = () => {
+  const handleLike = () => {
     if(liked) return;
-    setLikes(prev => prev ? prev +1 : 1);
+    addLikes();
     setLiked(true);
     localStorage.setItem('bibliographicrefs', 'liked');
   };
@@ -48,7 +47,7 @@ export const Header = ({ translation }: HeaderProps) => {
             h="20px" 
             color="purple.600"
             cursor="pointer"
-            onClick={AddLike}
+            onClick={handleLike}
           />
           {
             likes ? !liked ? (

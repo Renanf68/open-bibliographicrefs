@@ -3,19 +3,14 @@
   "short_name": "Referências bibliográficas",
   "description": "Projeto Open Source para busca e formatação de referências bibliográficas a partir do DOI. O material suportado até o momento é constituído por artigos, teses, dissertações, livros e capítulos de livros. Somos abertos e cresceremos juntos!",
   "start_url": "/",
-  "lang": "pt-br",
+  "lang": "pt-BR",
   "theme_color": "#6261CE",
   "background_color": "#F6F5FF",
   "display": "standalone",
   "icons": [
     {
-        "src": "/icons/android-chrome-192x192.png",
-        "sizes": "192x192",
-        "type": "image/png"
-    },
-    {
-        "src": "/icons/android-chrome-512x512.png",
-        "sizes": "512x512",
+        "src": "/icons/apple-touch-icon-152x152.png",
+        "sizes": "152x152",
         "type": "image/png"
     }
   ]
