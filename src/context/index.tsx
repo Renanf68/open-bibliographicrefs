@@ -25,7 +25,6 @@ export const MainContextProvider = ({ children }: Props) => {
   const [standard, setStandard] = React.useState<Standard>('abnt');
   const [searchResponse, setSearchResponse] = React.useState({} as DOIResponse);
   // handlers
-
   // UI
   return (
     <MainContext.Provider
@@ -35,7 +34,7 @@ export const MainContextProvider = ({ children }: Props) => {
         searchResponse,
         setLang,
         setStandard,
-        setSearchResponse
+        setSearchResponse,
       }}
     >
       {children}

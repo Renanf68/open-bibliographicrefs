@@ -86,7 +86,7 @@ export const SearchByDoiForm = ({ standard }: SearchByDoiFormProps) => {
             type: 'success',
             message: "Uma correspondência encontrada!",
           })
-          console.log("resposta", res.entries[0])
+          //console.log("resposta", res.entries[0])
           setSearchResponse(res.entries[0])
           setIsLoading(false)
         })

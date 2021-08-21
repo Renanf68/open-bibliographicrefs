@@ -24,8 +24,8 @@ export const ResultBox = ({ id, children }: ResultBoxProps) => {
   // UI
   return (
     <Flex p="6" bg="gray.200" borderRadius="lg">
-      <Text id={id} fontSize="xs">{children}</Text>
-      <Center pl="2">
+      <Text id={id} fontSize="xs" textAlign="justify">{children}</Text>
+      <Center minW="36px" pl="2">
         <Tooltip 
           fontSize="xs"
           label="Copiar" 

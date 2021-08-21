@@ -57,6 +57,7 @@ interface LangSelectProps {
 export const LangSelect = ({ selected, onChange }: LangSelectProps) => {
   return (
     <Select 
+      instanceId="lang-select"
       options={options} 
       styles={customStyles} 
       value={selected} 

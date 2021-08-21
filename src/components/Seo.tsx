@@ -102,7 +102,6 @@ export const Seo = ({
     <>
       <link rel="icon" href="/favicon.ico" />
       <link rel="canonical" href={canonical_url} />
-      <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
       <link rel="manifest" href="/manifest.webmanifest" />
       {
         metaTags.map(meta => {
