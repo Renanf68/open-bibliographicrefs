@@ -20,12 +20,12 @@ const getFirebaseClient = async () => {
     })
     .catch((error) => {
       console.log(error)
-    })
+    });
   const db = await import('firebase/database')
-    .then(() => {
-      return firebase.database();
-    })
-  return { firebase, db }
-}
+    .then(() => firebase.database());
+  await import('firebase/analytics')
+    .then(() => firebase.analytics());
+  return { firebase, db };
+};
 
 export default getFirebaseClient;

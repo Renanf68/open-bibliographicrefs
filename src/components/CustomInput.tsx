@@ -13,6 +13,7 @@ export const CustomInput = ({label, maxW, mt, mb, mr, ml, flex, value, placehold
     <FormControl position="relative" h="54px" {...controlProps}>
       {label && (
         <FormLabel 
+          htmlFor={props.id}
           position="absolute" 
           left="2" 
           top={value ? '1' : '6'} 

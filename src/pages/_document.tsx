@@ -7,7 +7,7 @@ import Document, {
 export default class MyDocument extends Document {
   render(): JSX.Element {
     return (
-      <Html>
+      <Html lang="pt-BR">
         <Head>
           <link rel="icon" href="/favicon.ico" />
           <link rel="alternate" hrefLang="pt-BR" href="https://referenciasbibliograficas.com.br" />
@@ -18,6 +18,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700&display=swap" 
             rel="stylesheet" 
           />
+          <meta name="theme-color" />
         </Head>
         <body>
           <Main />

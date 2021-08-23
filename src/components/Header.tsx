@@ -86,6 +86,7 @@ export const Header = ({ translation }: HeaderProps) => {
           <Tooltip label={`${translation.contribute} =)`} aria-label={translation.contributeAriaLabel}>
             <Link 
               href="https://github.com/Renanf68/open-bibliographicrefs" 
+              aria-label={translation.contributeAriaLabel}
               _focus={{outline: 'none'}}  
               isExternal
             >
